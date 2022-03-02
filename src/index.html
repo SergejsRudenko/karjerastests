@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    @@include('html/head.html', {
+        "title": "Main"
+    })
+    <body>
+        @@include('html/header.html',{})
+        <main>
+            <div class="container">
+                <form action="" class="questions__form">
+                    <!-- <div class="questions">
+                        <p class="question">Man patīk sistematizēt informāciju noteiktā kārtībā </p>
+                        <div class="answers">
+                            <input type="radio" value="yes" id="answerYes" name="question">
+                            <label for="answerYes">YES</label>
+                            <input type="radio" value="no" id="answerNo" name="question">
+                            <label for="answerNo">NO</label>
+                        </div>
+                    </div> -->
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+                <pre id="log"></pre>
+            </div>
+        </main>
+        @@include('html/footer.html',{})
+        <script src='js/app.min.js'></script>
+    </body>
+</html>
