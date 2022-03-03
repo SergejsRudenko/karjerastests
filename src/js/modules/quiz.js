@@ -1,7 +1,6 @@
 export function quiz() {
     let form = document.querySelector(".questions__form");
     var log = document.querySelector("#log");
-    var submitResults = document.querySelector(".results");
     let idCounter = 0;
     let mainQuestions = 
         {
@@ -56,7 +55,9 @@ export function quiz() {
             // "question4" : "4",
             // "question5" : "5",
             // "question6" : "6",
-            "ID": 1
+            "ID": 1,
+            "percentScore": 95,
+            "title": "Bioloģijas fakultāte"
         },
         "LU": {
             // "question1" : "Jautajums",
@@ -65,7 +66,9 @@ export function quiz() {
             // "question4" : "4",
             "question5" : "5",
             "question6" : "6",
-            "ID": 2
+            "ID": 2,
+            "percentScore": 45,
+            "title": "Ķīmijas fakultāte"
         }
     };
     function createPartOne () {
@@ -104,13 +107,13 @@ export function quiz() {
     function createPartTwo () {
         let currentDiv = document.querySelector("main");
         //Removes questions that are not in fallbackQuestions
-        // console.log(Object.keys(followQuestions));
-        // for (let item of Object.keys(followQuestions)){
-        //     console.log(item);
-        //     if (!fallbackAnswers.includes(item)) {
-        //         delete followQuestions[item];
-        //     }
-        // }
+        console.log(Object.keys(followQuestions));
+        for (let item of Object.keys(followQuestions)){
+            console.log(item);
+            if (!fallbackAnswers.includes(item)) {
+                delete followQuestions[item];
+            }
+        }
         console.log(followQuestions);
         let formCounter = 0;
         //Creates forms and questions in them
@@ -181,6 +184,21 @@ export function quiz() {
                       }, false);
                 formCounter++;
           }
+          let submitButton = document.createElement('a');
+          submitButton.classList.add('results');
+          submitButton.setAttribute('href','#');
+          submitButton.innerText = 'Submit Results';
+          currentDiv.insertAdjacentElement('beforeend', submitButton);
+          const submitResults = document.querySelector(".results");
+
+          submitResults.addEventListener('click', () => {
+            for(let item of Object.values(followQuestions) ) {
+                item.percentScore = item.questionsScore*100/2;
+                console.log(item.percentScore);
+            }
+            createResultCard();
+    
+            });
           
     }
   
@@ -219,14 +237,47 @@ export function quiz() {
         event.preventDefault();
       }, false);
 
-      submitResults.addEventListener('click', () => {
-          for(let item of Object.values(followQuestions) ) {
-              item.percentScore = item.questionsScore*100/2;
-            console.log(item.percentScore);
+      //Create result card depending on result
+      function createResultCard() {
+          let container = document.createElement('div');
+          let cards = document.createElement('div');
+          let main = document.querySelector('main');
+          container.classList.add('container');
+          cards.classList.add('cards');
+          container.insertAdjacentElement('afterbegin', cards);
+          main.insertAdjacentElement('beforeend', container);
+          for (let i = 0; i < Object.values(followQuestions).length; i++) {
+              let card = document.createElement('div');
+              let percentScore = Object.values(followQuestions)[i].percentScore;
+              let title = Object.values(followQuestions)[i].title;
+              console.log(Object.values(followQuestions));
+              card.classList.add('cards__item');
+              card.innerHTML = `
+              <div class="cards__item-result">${percentScore}%</div>
+              <h3 class="cards__item-title">${title}</h3>
+              <p class="cards__item-text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              </p>
+              <a href="" class="cards__item-button">uzzināt vairāk</a>
+              `
+              cards.insertAdjacentElement('beforeend', card);
           }
-      });
+      }
+      //Submit results 
+    //   submitResults.addEventListener('click', () => {
+    //     for(let item of Object.values(followQuestions) ) {
+    //         item.percentScore = item.questionsScore*100/2;
+    //         console.log(item.percentScore);
+    //     }
+    //     createResultCard();
+
+    // });
+
 
     createPartOne();
-    createPartTwo();
+    // createPartTwo();
+    // createResultCard();
     // writeAnswers();
 }
