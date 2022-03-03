@@ -1,6 +1,7 @@
 export function quiz() {
-    let form = document.querySelector("form");
+    let form = document.querySelector(".questions__form");
     var log = document.querySelector("#log");
+    var log2 = document.querySelector("#log2");
     let idCounter = 0;
     let mainQuestions = 
         {
@@ -22,7 +23,7 @@ export function quiz() {
                 "questionTwo": "Question 2",
                 "QTID": "Q2Q2",
                 "questionTwoAnswer": '',
-                "fallbackQuestions": ['B'],
+                "fallbackQuestions": ['BF(ALL)'],
                 "ID": 3
             },
             questionThree: {
@@ -42,29 +43,29 @@ export function quiz() {
                 "questionTwo": "Question 2",
                 "QTID": "Q5Q2",
                 "questionTwoAnswer": '',
-                "fallbackQuestions": ['D'],
+                "fallbackQuestions": ['LU'],
                 "ID": 7
             }
         };
     let fallbackAnswers = ['D'];
     let followQuestions = {
         "BF(ALL)": {
-            "questionOne" : "1",
-            "questionTwo" : "2",
-            "questionThree" : "3",
-            "questionFour" : "4",
-            "questionFive" : "5",
-            "questionSix" : "6",
+            "question1" : "Jautajums",
+            "question2" : "Numur divi",
+            // "question3" : "3",
+            // "question4" : "4",
+            // "question5" : "5",
+            // "question6" : "6",
             "ID": 1
         },
         "LU": {
-            "questionOne" : "1",
-            "questionTwo" : "2",
-            "questionThree" : "3",
-            "questionFour" : "4",
-            "questionFive" : "5",
-            "questionSix" : "6",
-            "ID": 3
+            // "question1" : "Jautajums",
+            // "question2" : "Numur Divi",
+            // "question3" : "3",
+            // "question4" : "4",
+            "question5" : "5",
+            "question6" : "6",
+            "ID": 2
         }
     };
     function createPartOne () {
@@ -101,45 +102,79 @@ export function quiz() {
           currentDiv.insertAdjacentElement('beforeend', newButton);
     }
     function createPartTwo () {
-        let currentDiv = document.querySelector(".questions__formTwo");
+        let currentDiv = document.querySelector("main");
         //Removes questions that are not in fallbackQuestions
         console.log(Object.keys(followQuestions));
-        // for (let item of Object.keys(followQuestions)){
-        //     console.log(item);
-        //     if (!fallbackAnswers.includes(item)) {
-        //         delete followQuestions[item];
-        //     }
-        // }
+        for (let item of Object.keys(followQuestions)){
+            console.log(item);
+            if (!fallbackAnswers.includes(item)) {
+                delete followQuestions[item];
+            }
+        }
         console.log(followQuestions);
+        let formCounter = 0;
         for (const item of Object.values(followQuestions)) {
-                let questionOne = item.questionOne;
-                let questionTwo = item.questionTwo;
+                let counter = 0;
                 let ID = item.ID;
-                let ID1 = item.QOID;
-                let ID2 = item.QTID;
-                let newDiv = document.createElement("div");
-                newDiv.innerHTML = `<p class="question">${questionOne}</p>
-                <div class="answers">
-                    <input type="radio" value="true" id="answerYes${ID}" name="question${ID}">
-                    <label for="answerYes${ID}">YES</label>
-                    <input type="radio" value="false" id="answerNo${ID}" name="question${ID}">
-                    <label for="answerNo${ID}">NO</label>
-                </div>
-                <p class="question">${questionTwo}</p>
-                <div class="answers">
-                    <input type="radio" value="true" id="answerYes${ID}" name="question${ID+1}">
-                    <label for="answerYes${ID}">YES</label>
-                    <input type="radio" value="false" id="answerNo${ID}" name="question${ID+1}">
-                    <label for="answerNo${ID}">NO</label>
-                </div>`;
-                newDiv.classList.add('questions');
-                currentDiv.insertAdjacentElement('beforeend', newDiv);
+                let container = document.createElement("div");
+                container.classList.add('container');
+                container.innerHTML = `
+                <form action="" class="questions__${formCounter}">
+                </form>
+                <pre id="log"></pre>
+                `
+                console.log(formCounter);
+                currentDiv.insertAdjacentElement('beforeend', container);
+                let formContainer = document.querySelector(`.questions__${formCounter}`);
+                    for(const deep of Object.values(item)){
+
+                    while(Object.keys(item)[counter] !='ID'){
+                    let newDiv = document.createElement("div");
+                    newDiv.innerHTML = `<p class="question">${Object.values(item)[counter]}</p>
+                    <div class="answers">
+                        <input type="radio" value="1" id="secondAnswerYes${ID}${counter}" name="question${ID}${counter}">
+                        <label for="secondAnswerYes${ID}${counter}">YES</label>
+                        <input type="radio" value="0" id="secondAnswerNo${ID}${counter}" name="question${ID}${counter}">
+                        <label for="secondAnswerNo${ID}${counter}">NO</label>
+                    </div>`;
+                    newDiv.classList.add('questions');
+                    formContainer.insertAdjacentElement('beforeend', newDiv);
+                    counter++;
+                    
+                }
+                    
+
+                      
+                }
+                const secondButton = document.createElement("button");
+                secondButton.classList.add('submit');
+                secondButton.setAttribute('type', 'submit');
+                secondButton.innerText = 'Submit';
+                formContainer.insertAdjacentElement('beforeend', secondButton);
+                const formTwo = document.querySelector(`.questions__${formCounter}`);
+                    formTwo.addEventListener("submit", function(event) {
+                        let data = new FormData(formTwo);
+                        let output = 0;                
+                        
+                          //Writes down the annswer values
+                            for (const item of Object.values(followQuestions)) {
+                                for (const entry of data) {
+                                    output += parseInt(entry[1]);
+                                };
+                                console.log(item);
+                                log.innerText = output;
+                                item.questionsScore = output;
+                                // console.log(item.questionsScore);
+                                output = 0;
+                            }
+                            // console.log(fallbackAnswers);
+                            // console.log(mainQuestions.questionThree);
+                            console.log(followQuestions);
+                            event.preventDefault();
+                      }, false);
+                formCounter++;
           }
-          let newButton = document.createElement("button");
-          newButton.classList.add('submit');
-          newButton.setAttribute('type', 'submit');
-          newButton.innerText = 'Submit';
-          currentDiv.insertAdjacentElement('beforeend', newButton);
+          
     }
   
     function createFallBackAnswers() {
@@ -152,8 +187,8 @@ export function quiz() {
     }
     
     form.addEventListener("submit", function(event) {
-        var data = new FormData(form);
-        var output = "";
+        let data = new FormData(form);
+        let output = "";
         let counter = 1;
 
         for (const entry of data) {
@@ -166,17 +201,19 @@ export function quiz() {
             // console.log(item.questionOneAnswer);
             item.questionTwoAnswer = data.get(`question${counter+1}`);
             // console.log(item.questionTwoAnswer);
-            counter +=2;
+            counter +=1;
             // console.log(counter);
         }
         createFallBackAnswers();
-        // console.log(fallbackAnswers);
+        console.log(fallbackAnswers);
         // console.log(mainQuestions.questionThree);
+        createPartTwo();
 
         event.preventDefault();
       }, false);
 
+      
+
     createPartOne();
-    createPartTwo();
     // writeAnswers();
 }
