@@ -1,7 +1,7 @@
 export function quiz() {
     let form = document.querySelector(".questions__form");
     var log = document.querySelector("#log");
-    var log2 = document.querySelector("#log2");
+    var submitResults = document.querySelector(".results");
     let idCounter = 0;
     let mainQuestions = 
         {
@@ -104,15 +104,16 @@ export function quiz() {
     function createPartTwo () {
         let currentDiv = document.querySelector("main");
         //Removes questions that are not in fallbackQuestions
-        console.log(Object.keys(followQuestions));
-        for (let item of Object.keys(followQuestions)){
-            console.log(item);
-            if (!fallbackAnswers.includes(item)) {
-                delete followQuestions[item];
-            }
-        }
+        // console.log(Object.keys(followQuestions));
+        // for (let item of Object.keys(followQuestions)){
+        //     console.log(item);
+        //     if (!fallbackAnswers.includes(item)) {
+        //         delete followQuestions[item];
+        //     }
+        // }
         console.log(followQuestions);
         let formCounter = 0;
+        //Creates forms and questions in them
         for (const item of Object.values(followQuestions)) {
                 let counter = 0;
                 let ID = item.ID;
@@ -121,7 +122,6 @@ export function quiz() {
                 container.innerHTML = `
                 <form action="" class="questions__${formCounter}">
                 </form>
-                <pre id="log"></pre>
                 `
                 console.log(formCounter);
                 currentDiv.insertAdjacentElement('beforeend', container);
@@ -155,18 +155,25 @@ export function quiz() {
                     formTwo.addEventListener("submit", function(event) {
                         let data = new FormData(formTwo);
                         let output = 0;                
-                        
+                        for (const entry of data) {
+                            output += parseInt(entry[1]);
+                        };
+                        console.log(item);
+                        log.innerText = output;
+                        item.questionsScore = output;
+                        // console.log(item.questionsScore);
+                        output = 0;
                           //Writes down the annswer values
-                            for (const item of Object.values(followQuestions)) {
-                                for (const entry of data) {
-                                    output += parseInt(entry[1]);
-                                };
-                                console.log(item);
-                                log.innerText = output;
-                                item.questionsScore = output;
-                                // console.log(item.questionsScore);
-                                output = 0;
-                            }
+                            // for (const item of Object.values(followQuestions)) {
+                            //     for (const entry of data) {
+                            //         output += parseInt(entry[1]);
+                            //     };
+                            //     console.log(item);
+                            //     log.innerText = output;
+                            //     item.questionsScore = output;
+                            //     // console.log(item.questionsScore);
+                            //     output = 0;
+                            // }
                             // console.log(fallbackAnswers);
                             // console.log(mainQuestions.questionThree);
                             console.log(followQuestions);
@@ -212,8 +219,14 @@ export function quiz() {
         event.preventDefault();
       }, false);
 
-      
+      submitResults.addEventListener('click', () => {
+          for(let item of Object.values(followQuestions) ) {
+              item.percentScore = item.questionsScore*100/2;
+            console.log(item.percentScore);
+          }
+      });
 
     createPartOne();
+    createPartTwo();
     // writeAnswers();
 }

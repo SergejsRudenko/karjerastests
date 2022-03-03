@@ -30,7 +30,7 @@ function watcher() {
     gulp.watch(path.watch.js, js);
     gulp.watch(path.watch.images, images);
 }
-const mainTasks = gulp.parallel(copy, html, scss, js, images);
+const mainTasks = gulp.parallel(copy,scss, html, js, images);
 
 const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));
 
