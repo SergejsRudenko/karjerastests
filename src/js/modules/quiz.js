@@ -6,10 +6,8 @@ export function quiz() {
         {
             questionOne: {
                 "questionOne": "Man patīk pētniecisks darbs",
-                "QOID": `Q1Q1`,
                 "questionOneAnswer": '',
                 "questionTwo": "Man piemīt pacietība un neatlaidība ilgstoši strādāt pie vienas problēmas risinājuma",
-                "QTID": `Q1Q2`,
                 "questionTwoAnswer": '',
                 "fallbackQuestions": ['A'],
                 "ID": 1
@@ -17,30 +15,24 @@ export function quiz() {
             },
             questionTwo: {
                 "questionOne": "Question",
-                "QOID": "Q2Q1",
                 "questionOneAnswer": '',
                 "questionTwo": "Question 2",
-                "QTID": "Q2Q2",
                 "questionTwoAnswer": '',
                 "fallbackQuestions": ['BF(ALL)'],
                 "ID": 3
             },
             questionThree: {
                 "questionOne": "Question",
-                "QOID": "Q3Q1",
                 "questionOneAnswer": '',
                 "questionTwo": "Question 2",
-                "QTID": "Q3Q2",
                 "questionTwoAnswer": '',
                 "fallbackQuestions": ['C'],
                 "ID": 5
             },
             questionFour: {
                 "questionOne": "Question",
-                "QOID": "Q4Q1",
                 "questionOneAnswer": '',
                 "questionTwo": "Question 2",
-                "QTID": "Q5Q2",
                 "questionTwoAnswer": '',
                 "fallbackQuestions": ['LU'],
                 "ID": 7
@@ -78,8 +70,6 @@ export function quiz() {
             let questionOne = item.questionOne;
                 let questionTwo = item.questionTwo;
                 let ID = item.ID;
-                let ID1 = item.QOID;
-                let ID2 = item.QTID;
                 let newDiv = document.createElement("div");
                 newDiv.innerHTML = `<p class="question">${questionOne}</p>
                 <div class="answers">
