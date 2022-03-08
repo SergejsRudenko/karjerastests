@@ -1,0 +1,213 @@
+
+.footer {
+  position: relative;
+  padding-top: 70px;
+  padding-bottom: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
+  // @include themeBg();
+  //$cBg
+  // background-color: rgba($cTheme, $alpha: 0.85);
+  background-color: $cTheme;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+
+  }
+  &__grid {
+    max-width: calc(1180px + 40px);
+    display: flex;
+    gap: 40px;
+    margin: 0 auto;
+    // padding-top: 70px;
+    // padding-bottom: 20px;
+    // position: relative;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
+    // @include grid;
+    // @supports (display: grid) {
+    //   grid-row-gap: 130px;
+    //   grid-template-areas: 'l l l l m m m m s s b b''c1 c1 c1 c1 c1 c1 c2 c2 c2 c2 c2 c2';
+    // }
+  }
+  &__logo {
+    display: block;
+    grid-area: l;
+    img {
+      width: 267px;
+    }
+  }
+  &__menu {
+    max-width: 732px;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+    display: flex;
+    font-size: 16px;
+    column-count: 3;
+    column-gap: 0.5rem;
+    li {
+      // max-width: 170px;
+      // width: 100%;
+      font-size: 16px;
+      flex-basis: 30%
+    }
+    // li+li {
+    //   margin-top: 10px;
+    // }
+    // @include unstyleUl;
+    
+  }
+  &__menuLink {
+    font-size: $sMediumFont;
+    font-weight: bold;
+    font-family: $fAccent;
+    line-height: 20px;
+    color: $cWhite;
+    &:hover {
+      text-decoration: none;
+      color: $cWhite;
+    }
+  }
+  &__socialMenu {
+  }
+  &__rankedBadge {
+    max-width: 190px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    img {
+      max-width: 85px;
+      width: 100%;
+    }
+  }
+  &__copyright {
+    //@include themeColor(color);
+    // color: $cTheme;
+    color: $cWhite;
+    font-size: $sMediumFont;
+    grid-area: c1;
+    width: 100%;
+    &-link {
+      color: #fff;
+    }
+    &-right {
+      grid-area: c2;
+    }
+    @supports (display: grid) {
+      width: initial;
+      &-right {
+        text-align: right;
+      }
+    }
+  }
+  &__up {
+
+    height: 60px;
+    width: 60px;
+    border-radius: $sRadius;
+    // @include themeColor();
+    //background-color: $cTheme;
+    border: none;
+    position: absolute;
+    z-index: 180;
+    top: -30px;
+    right: 50px;
+    cursor: pointer;
+    outline: none !important;
+    // @include ease;
+    &Arrow {
+    //   @include center;
+      margin-top: 3px;
+      &:before {
+        // @include pseudoToBlock;
+        @include arrow(12px, $cWhite, 'up', 2px);
+      }
+    }
+    &:hover, &:focus {
+      // @include themeColorActive();
+      //background-color: $cThemeActive;
+    }
+    &.fixed{
+      position: fixed;
+      top: auto;
+      bottom: 50px;
+    }
+  }
+  &__after {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 60px;
+  }
+  .edit-cookie__button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #fff;
+    color: #565662;
+    border: 1px solid #d4d8df;
+    padding: 2px 5px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    animation: slide-up .4s ease;
+  }
+  //media
+ @media(max-width: 768px) {
+   .footer {
+     &__grid {
+       flex-wrap: wrap;
+       justify-content: center;
+     }
+     &__rankedBadge {
+       max-width: 300px;
+       margin: 0 auto;
+       justify-content: center;
+     }
+     &__menu {
+       text-align: center;
+       max-width: 465px;
+       padding-left: 25px;
+       li {
+       }
+     }
+     &__after {
+       padding: 0 15px;
+       text-align: center;
+     }
+     &__rankedBadge {
+      max-width: 600px;
+      img {
+        max-width: 75px;
+      }
+    }
+   }
+ }
+ @media (max-width: 480px){
+   .footer {
+       &__menu {
+         flex-direction: row;
+         padding: 0 10px;
+         height: auto;
+         column-count: 2;
+         justify-content: center;
+         li {
+           flex-basis: 45%;
+         }
+       }
+       &__rankedBadge {
+        max-width: 300px;
+      }
+     }
+ }
+ @media (max-width: 358px){
+  .footer {
+      &__menu {
+        justify-content: center;
+      }
+    }
+}
+}

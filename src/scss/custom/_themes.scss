@@ -1,0 +1,68 @@
+
+@mixin makeTheme($color: $cTheme){
+  $cTheme: $color;
+  $cBg: mix($cWhite, $cTheme, 88%);
+  $cBorder:  mix($cWhite, $cTheme, 70%);
+  $cThemeActive: mix($cBlack, $cTheme, 18%);
+  $cMenuOpenBg:  mix($cBlack, $cTheme, 40%);
+  --cTheme: #{$cTheme};
+  --cThemeActive: #{$cThemeActive};
+  --cBorder: #{$cBorder};
+  --cBg: #{$cBg};
+  --cMenuBg: #{$cMenuOpenBg}
+}
+
+.lu-bf{
+  @include makeTheme(#58a618);
+}
+
+.lu-bvef{
+  @include makeTheme(#00675a);
+}
+
+.lu-df{
+  @include makeTheme(#eaab00);
+}
+
+.lu-fmf{
+  @include makeTheme(#ff7900);
+}
+
+.lu-gzzf{
+  @include makeTheme(#8e9300);
+}
+
+.lu-hzf{
+  @include makeTheme(#ac2973);
+}
+
+.lu-jf{
+  @include makeTheme(#0f204b);
+}
+
+.lu-kf{
+  @include makeTheme(#3b0083);
+}
+
+.lu-mf{
+  @include makeTheme(#d52b1e);
+}
+
+.lu-ppmf{
+  @include makeTheme(#a44dc4);
+}
+
+.lu-szf{
+  @include makeTheme(#0082ca);
+}
+
+.lu-tf{
+  @include makeTheme(#7d5cc6);
+}
+
+.lu-vff{
+  @include makeTheme(#8c9091);
+}
+.lu-nbl {
+  @include makeTheme(#1B5089);
+}

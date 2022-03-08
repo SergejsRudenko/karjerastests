@@ -1,0 +1,265 @@
+@mixin stretch($position: absolute) {
+    position: $position;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    width: auto;
+  }
+  
+  @mixin center($position: absolute) {
+    position: $position;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @mixin vertical($position: absolute) {
+    position: $position;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  @mixin horizontal($position: absolute) {
+    position: $position;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  @mixin headerNoMargin($margin: 0) {
+    h1, h2, h3, h4, h5, h6, span, p {
+      margin: $margin;
+    }
+  }
+  
+  @mixin pseudoToBlock {
+    display: block;
+    content: "";
+  }
+  
+  @mixin arrow($size, $color, $orientation: "right", $thickness: 2px) {
+    content: "";
+    display: block;
+    height: $size;
+    width: $size;
+    box-sizing: border-box;
+    border-bottom: $thickness solid $color;
+    border-right: $thickness solid $color;
+    @if $orientation == "right" {
+      transform: rotate(-45deg);
+    } @else if $orientation == "down" {
+      transform: rotate(45deg);
+    } @else if $orientation == "left" {
+      transform: rotate(135deg);
+    } @else if $orientation == "up" {
+      transform: rotate(-135deg);
+    }
+  }
+  
+  
+  @mixin cross($color, $width: 15px, $thickness: 1px, $radius: 0px){
+    width: $width;
+    height: $width;
+    position: relative;
+    display: block;
+    &:before, &:after{
+      border-radius: $radius;
+      display: block;
+      content: '';
+      background-color: $color;
+      width: $width;
+      height: $thickness;
+      position: absolute;
+      top: ($width - $thickness/2)/2;
+      left: 0;
+    }
+    &:before{
+      transform: rotate(45deg);
+    }
+    &:after{
+      transform: rotate(-45deg);
+    }
+  }
+  
+  @mixin colorPlaceholder($color) {
+    &::-webkit-input-placeholder {
+      color: $color;
+    }
+    &::-moz-placeholder {
+      color: $color;
+    }
+    &:-ms-input-placeholder {
+      color: $color;
+    }
+    &:-moz-placeholder {
+      color: $color;
+    }
+  }
+  
+  @mixin fitBG {
+    background-size: cover;
+    background-position: center;
+  }
+  
+  @function tint($color, $percentage) {
+    @return mix(white, $color, $percentage);
+  }
+  
+  @function shade($color, $percentage) {
+    @return mix(black, $color, $percentage);
+  }
+  
+  @mixin ease($speed: 1) {
+    transition-duration: $tGeneric * $speed;
+    transition-timing-function: $tfStandart;
+  }
+  
+  @mixin allContent {
+    &, > * {
+      @content;
+    }
+  }
+  
+  @mixin icon {
+    font-family: "icomoon" !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  @mixin visuallyHidden ($important: true){
+    @if $important {
+      position: absolute !important;
+      clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+      clip: rect(1px, 1px, 1px, 1px);
+      padding: 0 !important;
+      border: 0 !important;
+      height: 1px !important;
+      width: 1px !important;
+      overflow: hidden;
+    }
+    @else{
+      position: absolute;
+      clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+      clip: rect(1px, 1px, 1px, 1px);
+      padding: 0;
+      border: 0;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+    }
+  }
+  
+  @mixin visuallyUnHidden ($important: true){
+    @if $important {
+      position: initial !important;
+      clip: initial;
+      padding: initial !important;
+      border: initial !important;
+      height: initial !important;
+      width: initial !important;
+      overflow: initial;
+    }
+    @else{
+      position: initial;
+      clip: initial;
+      padding: initial;
+      border: initial;
+      height: initial;
+      width: initial;
+      overflow: initial;
+    }
+  }
+  
+  @mixin leftLine($color: $cDark){
+    position: relative;
+    padding-left: 80px;
+    &:before{
+      @include pseudoToBlock;
+      position: absolute;
+      top: 50%;
+      height: 1px;
+      width: 66px;
+      left: 2px;
+      background-color: $color;
+    }
+  }
+  
+  @mixin unstyleUl(){
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  
+  @mixin gridGap($property: grid-gap){
+    #{$property}: $gGap;
+    #{$property}: var(--gridGap);
+  }
+  
+  @mixin gridContainer{
+    padding-left: $gContainerPadding;
+    padding-right: $gContainerPadding;
+    //box-sizing: content-box;
+    margin: auto;
+    width: 100%;
+    max-width: calc(#{$gMaxWidth} + #{$gContainerPadding*2});
+    //max-width: calc(#{$gMaxWidth} + #{$gContainerPadding*2} - 60px*2);
+    /*@include media-breakpoint-down(lg){
+      max-width: calc(#{$gMaxWidth});
+    }*/
+    display: grid;
+    @include gridGap();
+  }
+  
+  @mixin grid($cols: 12){
+    @include gridContainer;
+    grid-template-columns: repeat($cols, 1fr);
+    @include media-breakpoint-down(sm){
+      grid-template-columns: repeat(8, 1fr);
+    }
+    @include media-breakpoint-down(xs){
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  
+  @mixin themeColor($property: background-color){
+    #{$property}: $cTheme;
+    #{$property}: var(--cTheme);
+  }
+  
+  @mixin themeColorActive($property: background-color){
+    #{$property}: $cThemeActive;
+    #{$property}: var(--cThemeActive);
+  }
+  
+  @mixin themeBorder($property: background-color){
+    #{$property}: $cBorder;
+    #{$property}: var(--cBorder);
+  }
+  
+  @mixin themeBg($property: background-color){
+    #{$property}: $cBg;
+    #{$property}: var(--cBg);
+  }
+  
+  
+  @mixin themeMenuBg($property: background-color){
+    #{$property}: $cMenuOpenBg;
+    #{$property}: var(--cMenuBg);
+  }
+  
+  @mixin linkColors{
+    //@include themeColor(color);
+    color: $cTheme;
+    &:hover, &:focus{
+      //@include themeColorActive(color);
+      color: $cThemeActive;
+    }
+  }

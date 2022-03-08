@@ -1,0 +1,179 @@
+//colors
+
+$cWhite: #fff;
+$cBlack: #000;
+
+$cBlue: #084C85;
+$luBG: #EBF5FF;
+$cGrey: rgba(177, 177, 178, 0.2);
+$cDark: #1b1b1b;
+$cBgShade: #f8f8f8;
+$cTextInactive: #656565;
+$cMenuBg: #f4f7fa;
+$cHighlight: #d0ffcf;
+
+$cTheme: #1B5089;
+$cBg: mix($cWhite, $cTheme, 88%);
+$cBorder:  mix($cWhite, $cTheme, 70%);
+$cThemeActive: mix($cBlack, $cTheme, 18%);
+$cMenuOpenBg:  mix($cBlack, $cTheme, 40%);
+
+:root{
+  --cTheme: #{$cTheme};
+  --cThemeActive: #{$cThemeActive};
+  --cBorder: #{$cBorder};
+  --cBg: #{$cBg};
+  --cMenuBg: #{$cMenuOpenBg};
+}
+
+@import "./themes";
+
+$cMenuHover: rgba($cTheme, 0.08);
+
+//accents
+$cAccentPurple: #2a097e;
+$cAccentGreen: #008c70;
+$cAccentBlue: #005293;
+
+//time
+
+$tGeneric: 200ms;
+
+$tfEaseOut: cubic-bezier(0.1, 1, 0.3, 1);
+
+$tfStandart: cubic-bezier(0.4, 0, 0.2, 1);
+$tfStandartR: cubic-bezier(0.8, 0, 0.6, 1);
+$tfDecel: cubic-bezier(0, 0, 0.2, 1);
+$tfDecelBounce: cubic-bezier(0, 0, 0.3, 1.3);
+$tfAccel: cubic-bezier(0.4, 0, 1, 1);
+$tfSharp: cubic-bezier(0.4, 0, 0.6, 1);
+
+//size
+
+$sBodyFont: 18px;
+$sBodySizeFont: 1rem; //18px
+$sIconFrame: 0.8888rem; //16px
+$sIconFrameMedium: 1.1111rem; //20px
+$sIconFrameBig: 1.3333rem; //24px
+$sIconFrameBigX: 1.4444rem; //26px
+$sIconFrameLarge: 1.8888rem; //34px
+$sLargerFont: 1.4444rem; //26px
+$sLargeFont: 1.3333rem; //24px
+$sBiggerFont: 1.2222rem; //22px
+$sBigFont: 1.1111rem; //20px
+$sMediumFont: 0.8888rem; //16px
+$sSmallFontL: 0.8333rem; //15px
+$sSmallFont: 0.7777rem; //14px
+$sSmallFontX: 0.7222rem; //13px
+$sMicroFont: 0.6666rem; //12px
+$sMicroFontX: 0.6111rem; //11px
+
+$sFontH1: 4.4444rem; //80px
+$sFontH1M: 2.5rem; //80px
+
+$sFontH2: 2.2222rem; //40px
+$sFontH2M: 1.6666rem; //30px
+
+$sFontH3: 1.6666rem; //30px
+$sFontH3M: 1.3333rem; //24px
+
+$sFontH4: 1.3333rem; //24px
+$sFontH4M: 1.1111rem; //20px
+
+$sFontHCard: 1.3333rem; //24px
+
+$sSearchFieldSmall: 1.3333rem; //24px
+$sSearchFieldSmallM: 1.2222rem; //22px
+
+$sMobileMenuItem: 1.4444rem; //26px
+$sMobileMenuItemM: 1.2222rem; //22px
+$sMobileMenuBottomLink: 1.1111rem; //20px
+$sMobileMenuBottomLink2: 0.8888rem; //16px
+
+$sSearchResultsInput: 1.6666rem; //30px
+$sSearchResultsInputM: 1.3333rem; //24px
+
+$sSearchResultsItemTitle: 1.4444rem; //26px
+$sSearchResultsItemTitleM: 1.3333rem; //24px
+
+$seventItemMonth: 1.3889rem; //25px
+$seventItemMonthLine: 1.6111rem; //29px
+
+$sRadius: 0.16666rem;
+
+$sHeaderPadding: 180px;
+
+//grid
+$gGap: 40px;
+$gGapSm: 25px;
+$gPagePadding: 60px;
+// $gContainerPadding: $gGap/2;
+$gMaxWidth: 1180px;
+//$gMaxWidth: 100%;
+
+
+// :root{
+//   --gridGap: #{$gGap};
+//   @include media-breakpoint-down(md){
+//     --gridGap: #{$gGapSm};
+//   }
+// }
+
+//fonts
+
+$fBody: 'PT Sans', sans-serif;
+$fAccent: 'PF Handbook Pro', sans-serif;
+
+//z-index
+
+$zAbove: 200;
+$zMenu: 300;
+$zAboveMenu: 400;
+$zModal: 500;
+
+// icomoon
+$icomoon-font-family: "icomoon" !default;
+$icomoon-font-path: "../files/icons/fonts" !default;
+
+$icon-lu-email: "\e903";
+$icon-lu-phone: "\e908";
+$icon-lu-pin: "\e909";
+$icon-lu-web: "\e914";
+$icon-lu-file: "\e91b";
+$icon-lu-file-archive: "\e91c";
+$icon-lu-file-doc: "\e91d";
+$icon-lu-file-image: "\e91e";
+$icon-lu-file-pdf: "\e91f";
+$icon-lu-file-png: "\e920";
+$icon-lu-social-2-fb: "\e921";
+$icon-lu-social-2-in: "\e922";
+$icon-lu-social-2-tw: "\e923";
+$icon-lu-pin-2: "\e924";
+$icon-lu-calendar-3: "\e925";
+$icon-lu-clock: "\e926";
+$icon-lu-calendar-2: "\e919";
+$icon-lu-list: "\e91a";
+$icon-lu-checkbox-unchecked: "\e918";
+$icon-lu-checkbox-checked: "\e907";
+$icon-lu-calendar: "\e915";
+$icon-lu-search-2: "\e902";
+$icon-lu-bulta-10: "\e901";
+$icon-lu-changefontsize: "\e900";
+$icon-lu-home: "\e904";
+$icon-lu-lock: "\e905";
+$icon-lu-outsource: "\e906";
+$icon-lu-play: "\e90a";
+$icon-lu-play-b: "\e90b";
+$icon-lu-search: "\e90c";
+$icon-lu-social-fb: "\e90d";
+$icon-lu-social-google: "\e90e";
+$icon-lu-social-in: "\e90f";
+$icon-lu-social-insta: "\e910";
+$icon-lu-social-rss: "\e911";
+$icon-lu-social-tw: "\e912";
+$icon-lu-social-yt: "\e913";
+$icon-lu-bulta-20: "\e916";
+$icon-lu-bulta-30: "\e917";
+
+
+
