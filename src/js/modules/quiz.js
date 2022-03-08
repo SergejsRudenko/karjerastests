@@ -1,15 +1,17 @@
+import Swiper from 'swiper/bundle';
 import * as QuestionCard from "./question-card.js";
-
+import * as Slider from "./slider.js";
+import * as SecondSlides from "./secondSlidesLogic.js";
 export function quiz() {
     let form = document.querySelector(".questions__form");
-    var log = document.querySelector("#log");
+    // var log = document.querySelector("#log");
     let idCounter = 1;
     let DOMMainQuestions = document.querySelectorAll('[data-follow]');
     let DOMFollowQuestions = document.querySelectorAll('[data-question]');
     let mainQuestionsTest = [];
     let followQuestionsTest = [];
-    let domCounter = 0;
-    
+    let mainDisplay = document.querySelector('.first__inner');
+
     for (let i=0; i < DOMFollowQuestions.length; i++) {
         let title = DOMFollowQuestions[i].dataset.title;
         let questions = DOMFollowQuestions[i].dataset.question.split('?');
@@ -22,98 +24,8 @@ export function quiz() {
     }
     console.log(followQuestionsTest);
 
-    let mainQuestions = 
-        {
-            questionOne: {
-                "questionOne": "Q1",
-                "questionOneAnswer": '',
-                "questionTwo": "Q2",
-                "questionTwoAnswer": '',
-                "fallbackQuestions": ['A'],
-                "ID": 1
-                // ['BF(All)','ĶF(All)','MF(All)','ĢZZF(All)','HZF(KS)','PPMF(STS)','SZF(S)']
-            },
-            questionTwo: {
-                "questionOne": "Question",
-                "questionOneAnswer": '',
-                "questionTwo": "Question 2",
-                "questionTwoAnswer": '',
-                "fallbackQuestions": ['BF(ALL)'],
-                "ID": 3
-            },
-            questionThree: {
-                "questionOne": "Question",
-                "questionOneAnswer": '',
-                "questionTwo": "Question 2",
-                "questionTwoAnswer": '',
-                "fallbackQuestions": ['C'],
-                "ID": 5
-            },
-            questionFour: {
-                "questionOne": "Question",
-                "questionOneAnswer": '',
-                "questionTwo": "Question 2",
-                "questionTwoAnswer": '',
-                "fallbackQuestions": ['LU'],
-                "ID": 7
-            }
-        };
+
     let fallbackAnswers = [];
-    let followQuestions = {
-        "PI": {
-            "question1" : "Jautajums",
-            "question2" : "Numur divi",
-            // "question3" : "3",
-            // "question4" : "4",
-            // "question5" : "5",
-            // "question6" : "6",
-            "ID": 1,
-            "percentScore": 95,
-            "title": "Bioloģijas fakultāte"
-        },
-        "ZDE": {
-            // "question1" : "Jautajums",
-            // "question2" : "Numur Divi",
-            // "question3" : "3",
-            // "question4" : "4",
-            "question5" : "5",
-            "question6" : "6",
-            "ID": 2,
-            "percentScore": 45,
-            "title": "Ķīmijas fakultāte"
-        }
-    };
-    // function createPartOne () {
-    //     let currentDiv = document.querySelector(".questions__form");
-    //     for (const item of Object.values(mainQuestions)) {
-    //         // console.log(item);
-    //         let questionOne = item.questionOne;
-    //             let questionTwo = item.questionTwo;
-    //             let ID = item.ID;
-    //             let newDiv = document.createElement("div");
-    //             newDiv.innerHTML = `<p class="question">${questionOne}</p>
-    //             <div class="answers">
-    //                 <input type="radio" value="true" id="answerYes${ID}" name="question${ID}">
-    //                 <label for="answerYes${ID}">YES</label>
-    //                 <input type="radio" value="false" id="answerNo${ID}" name="question${ID}">
-    //                 <label for="answerNo${ID}">NO</label>
-    //             </div>
-    //             <p class="question">${questionTwo}</p>
-    //             <div class="answers">
-    //                 <input type="radio" value="true" id="answerYes${ID}" name="question${ID+1}">
-    //                 <label for="answerYes${ID}">YES</label>
-    //                 <input type="radio" value="false" id="answerNo${ID}" name="question${ID+1}">
-    //                 <label for="answerNo${ID}">NO</label>
-    //             </div>`;
-    //             newDiv.classList.add('questions');
-    //             currentDiv.insertAdjacentElement('beforeend', newDiv);
-    //       }
-    //       let newButton = document.createElement("button");
-    //       newButton.classList.add('submit');
-    //       newButton.setAttribute('type', 'submit');
-    //       newButton.innerText = 'Submit';
-    //       currentDiv.insertAdjacentElement('beforeend', newButton);
-    // }
     function createPartTwo () {
         let currentDiv = document.querySelector("main");
         //Removes questions that are not in fallbackQuestions
@@ -133,72 +45,118 @@ export function quiz() {
 
             // console.log(Object.values(element));
             let container = document.createElement("div");
-            container.classList.add('container');
+            container.classList.add('wrapper');
                 container.innerHTML = `
                 <form action="" class="questions__${formCounter} questions__form">
+		            <div class="swiper swiper__second swiper${formCounter}">
+                        <div class="swiper-wrapper">
+                            
+                        </div>
+
+                        <div class="swiper-button-prev second-slider-prev">Atpakaļ</div>
+                        <div class="swiper-button-next second-slider-next">Tālāk</div>
+                    </div>
                 </form>
                 `
                 currentDiv.insertAdjacentElement('beforeend', container);
-                let formContainer = document.querySelector(`.questions__${formCounter}`);
+                let formContainer = document.querySelector(`.questions__${formCounter} > .swiper > .swiper-wrapper`);
                 
                 // while(Object.keys(element)[counter] !='ID'){
                     for (let i = 0; i < element.followQuestions.length; i++) {
                         let ID = element.ID;
                          let newDiv = document.createElement("div");
-                    newDiv.innerHTML = `<p class="question">${element.followQuestions[counter]}</p>
+                    newDiv.innerHTML = `<p class="question">${element.followQuestions[i]}</p>
                     <div class="answers">
                         <input type="radio" value="1" id="secondAnswerYes${ID}${i}" name="question${ID}${i}" hidden>
                         <label for="secondAnswerYes${ID}${i}">JĀ</label>
                         <input type="radio" value="0" id="secondAnswerNo${ID}${i}" name="question${ID}${i}" hidden>
                         <label for="secondAnswerNo${ID}${i}">NĒ</label>
                     </div>`;
-                    newDiv.classList.add('questions');
+                    newDiv.classList.add('questions','swiper-slide');
                     formContainer.insertAdjacentElement('beforeend', newDiv);
                     }
-                    counter++;
-
-
 
                 const secondButton = document.createElement("button");
-                secondButton.classList.add('submit');
+                secondButton.classList.add('swiper-slide', 'featured__link' ,'secondButton');
                 secondButton.setAttribute('type', 'submit');
-                secondButton.innerText = 'Submit';
+                secondButton.innerText = 'Turpināt';
                 formContainer.insertAdjacentElement('beforeend', secondButton);
                 const formTwo = document.querySelector(`.questions__${formCounter}`);
+
+                let wrapCount = 0;
+
                 formTwo.addEventListener("submit", function(event) {
-                    
+                    let wrapper = document.querySelectorAll('.wrapper');
+                
                     let data = new FormData(formTwo);
                     let output = 0;                
                     for (const entry of data) {
                         output += parseInt(entry[1]);
                     };
-                    log.innerText = output;
+                    // log.innerText = output;
                     element.questionsScore = output;
                     element.percentScore = element.questionsScore*100 / element.followQuestions.length;
                     output = 0;
-                    console.log(followQuestionsTest);
-                        event.preventDefault();
+                    // for (let i = 0; i < wrapper.length; i++) {
+                        
+                    // }
+                    //Trying to iterate and show sliders
+                    wrapper[wrapCount].classList.add('none');
+                    wrapper[wrapCount+1].classList.remove('none');
+                    console.log(wrapper.length);
+                    console.log(wrapper);
+                    if(wrapper.length-1 === wrapCount){
+                        console.log('hey')
+                    }
+                    wrapCount++;
+                    event.preventDefault();
                     }, false);
+                
 
+                mainDisplay.insertAdjacentElement('beforeend', container);
 
+                counter++;
                 formCounter++;
 
         })
+        let swiper = document.querySelectorAll('.swiper');
+        for( let i=0; i< swiper.length; i++ ) {
+  
+            var slider = new Swiper('.swiper' + i, {
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+          },
+        
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        
+          // And if we need scrollbar
+          scrollbar: {
+            el: '.swiper-scrollbar',
+          },
+            });
+          
+          }
           let submitButton = document.createElement('a');
-          submitButton.classList.add('results');
+          submitButton.classList.add('resultsButton');
           submitButton.setAttribute('href','#');
           submitButton.innerText = 'Submit Results';
           currentDiv.insertAdjacentElement('beforeend', submitButton);
-          const submitResults = document.querySelector(".results");
+          const submitResults = document.querySelector(".resultsButton");
           //Submit results 
         submitResults.addEventListener('click', () => {
             for(let item of followQuestionsTest ) {
                 console.log(item.percentScore);
                 console.log(followQuestionsTest);
-                createResultCard();
             }
-    
+            createResultCard();
+            
             });
+            Slider.slider();
 
           
     }
@@ -217,11 +175,13 @@ export function quiz() {
         let data = new FormData(form);
         let output = "";
         let counter = 0;
+        let questionsForm = document.querySelector('.first__questions-form');
+
 
         for (const entry of data) {
             output = output + entry[0] + "=" + entry[1] + "\r";
           };
-          log.innerText = output;
+        //   log.innerText = output;
 
           for (let i=0; i < DOMMainQuestions.length; i++) {
             let array = DOMMainQuestions[i].dataset.follow.split(',');
@@ -241,19 +201,36 @@ export function quiz() {
         createFallBackAnswers();
         createPartTwo();
         QuestionCard.questionCard();
+        questionsForm.classList.remove('block');
         console.log(fallbackAnswers);
-
+        SecondSlides.secondSlides();
         event.preventDefault();
       }, false);
       //Create result card depending on result
       function createResultCard() {
+          let hero = document.querySelector('.first');
+          hero.classList.add('none');
+          let main = document.querySelector('.results');
+          main.classList.remove('none');
+          let resultsContainer = document.createElement('div');
+          resultsContainer.classList.add('container');
+          resultsContainer.innerHTML = `
+          <h6 class="results__heading">Testa rezultāts:</h6>
+			<h1 class="results__title">
+				Bioloģijas fakultāte
+			</h1>
+			<div class="results__subtitle">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			</div>
+          `
+          main.insertAdjacentElement('beforeend', resultsContainer);
+
           let container = document.createElement('div');
           let cards = document.createElement('div');
-          let main = document.querySelector('main');
           container.classList.add('container');
           cards.classList.add('cards');
           container.insertAdjacentElement('afterbegin', cards);
-          main.insertAdjacentElement('beforeend', container);
+          main.insertAdjacentElement('afterend', container);
           for (let i = 0; i < followQuestionsTest.length; i++) {
               let card = document.createElement('div');
               let percentScore = followQuestionsTest[i].percentScore;
@@ -261,7 +238,7 @@ export function quiz() {
               console.log(followQuestionsTest);
               card.classList.add('cards__item');
               card.innerHTML = `
-              <div class="cards__item-result">${percentScore}%</div>
+              <div class="cards__item-result">${percentScore}%<div class="ring"></div></div>
               <h3 class="cards__item-title">${title}</h3>
               <p class="cards__item-text">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
