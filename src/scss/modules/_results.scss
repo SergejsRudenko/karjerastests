@@ -52,7 +52,7 @@
     transform: translateY(-110px);
     &__item {
         background-color: #fff;
-        max-width: 346px;
+        max-width: 427px;
         width: 100%;
         padding: 60px 50px;
         text-align: center;
@@ -74,7 +74,7 @@
                 position: absolute;
                 width: 130px;
                 height: 130px;
-                border: 8px solid red;
+                border: 8px solid #7FD1A5;
                 border-radius: 50%;
                 left: 50%;
                 top: 50%;
@@ -101,13 +101,69 @@
             font-weight: 900;
             font-size: 24px;
             line-height: 22px;
-            letter-spacing: 0.095;
+            letter-spacing: 0.095em;
             text-transform: uppercase;
             text-decoration: none;
             border: 1.5px solid #1B5089;
             border-radius: 25.5px;
-            padding: 15px 25px;
+            padding: 16px 25px;
             display: block;
+        }
+    }
+}
+.resultsButton {
+    background-color: #fff;
+    color: $cTheme;
+    @media (max-width:768px) {
+        text-align: center;
+        margin-bottom: 60px;
+        font-size: 20px;
+    }
+}
+.pagination-numbers {
+    background: red !important;
+    color: #fff;
+}
+@media(max-width: 768px) {
+    .results {
+        &__heading {
+            font-size: 24px;
+            line-height: 28px;
+            margin-bottom: 12px;
+        }
+        &__title {
+            font-size: 64px;
+            line-height: 59px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        &__subtitle {
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 700;
+            margin-bottom: 74px;
+
+        }
+    }
+    .cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        &__item {
+            max-width: 335px;
+            padding: 54px 24px;
+            &-result {
+
+            }
+            &-title {
+
+            }
+            &-text {
+
+            }
+            &-button {
+                padding: 16px 0;
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ import Swiper from 'swiper/bundle';
 import * as QuestionCard from "./question-card.js";
 import * as Slider from "./slider.js";
 import * as SecondSlides from "./secondSlidesLogic.js";
-export function quiz() {
+export function quizMobile() {
     let form = document.querySelector(".questions__form");
     // var log = document.querySelector("#log");
     let idCounter = 1;
@@ -54,19 +54,11 @@ export function quiz() {
             container.classList.add('wrapper');
                 container.innerHTML = `
                 <form action="" class="questions__${formCounter} questions__form partTwoForm">
-		            <div class="swiper swiper__second swiper${formCounter}">
-                        <div class="swiper-wrapper">
-                            
-                        </div>
-
-                        <div class="swiper-button-prev second-slider-prev">Atpakaļ</div>
-                        <div class="swiper-button-next second-slider-next">Tālāk</div>
-
-                    </div>
+		            
                 </form>
                 `
                 currentDiv.insertAdjacentElement('beforeend', container);
-                let formContainer = document.querySelector(`.questions__${formCounter} > .swiper > .swiper-wrapper`);
+                let formContainer = document.querySelector(`.questions__${formCounter}`);
                 
                 // while(Object.keys(element)[counter] !='ID'){
                     for (let i = 0; i < element.followQuestions.length; i++) {
@@ -79,17 +71,15 @@ export function quiz() {
                         <input type="radio" value="0" id="secondAnswerNo${ID}${i}" name="question${ID}${i}" hidden>
                         <label for="secondAnswerNo${ID}${i}">NĒ</label>
                     </div>`;
-                    newDiv.classList.add('questions','swiper-slide', 'swiper-no-swiping');
+                    newDiv.classList.add('questions','swiper-slide');
                     formContainer.insertAdjacentElement('beforeend', newDiv);
                     }
-                const div = document.createElement('div');
-                div.classList.add('swiper-slide','lastButton');
+
                 const secondButton = document.createElement("button");
-                secondButton.classList.add('featured__link' ,'secondButton');
+                secondButton.classList.add('swiper-slide', 'featured__link' ,'secondButton');
                 secondButton.setAttribute('type', 'submit');
                 secondButton.innerText = 'Turpināt';
-                div.insertAdjacentElement('beforeend', secondButton);
-                formContainer.insertAdjacentElement('beforeend', div);
+                formContainer.insertAdjacentElement('beforeend', secondButton);
                 const formTwo = document.querySelector(`.questions__${formCounter}`);
 
 
@@ -119,7 +109,7 @@ export function quiz() {
         let swiper = document.querySelectorAll('.swiper');
         for( let i=0; i< swiper.length; i++ ) {
   
-            var slider = new Swiper('.swiper' + i, {
+            const slider = new Swiper('.swiper' + i, {
                 // If we need pagination
                 pagination: {
                     el: '.swiper-pagination',
@@ -136,7 +126,9 @@ export function quiz() {
                 scrollbar: {
                     el: '.swiper-scrollbar',
                 },
+                allowTouchMove: false,
                     });
+                    slider.allowTouchMove(false);
           }
           
             Slider.slider();
@@ -154,6 +146,7 @@ export function quiz() {
                     if(wrapper.length-1 === counter){
                         let submitButton = document.createElement('a');
                         submitButton.classList.add('resultsButton', 'featured__link');
+                        document.querySelector('.first').classList.add('overlayMobile');
                         submitButton.setAttribute('href','#');
                         submitButton.innerText = 'Apskatīt rezultātu';
                         mainDisplay.insertAdjacentElement('beforeend', submitButton);
@@ -172,6 +165,7 @@ export function quiz() {
                     wrapper[counter+1].classList.remove('none');
                     console.log(wrapper.length);
                     console.log(counter);
+                    window.scrollTo(0, 0);
                     counter++;
                 event.preventDefault();
             },false);

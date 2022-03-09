@@ -1,9 +1,9 @@
 import Swiper from 'swiper/bundle';
 
 export function slider(){
-    const swiper = new Swiper('.swiper', {
+    const swiperMy = new Swiper('.swiper', {
         // Optional parameters
-      
+        allowTouchMove: false,
         // If we need pagination
         pagination: {
           el: '.swiper-pagination',
@@ -19,5 +19,17 @@ export function slider(){
         scrollbar: {
           el: '.swiper-scrollbar',
         },
+        breakpoints: {
+          // when window width is >= 320px
+          320: {
+            direction: 'vertical',
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          // when window width is >= 640px
+          769: {
+            direction: 'horizontal'
+          }
+        }
       });
 }

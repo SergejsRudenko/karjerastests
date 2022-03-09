@@ -1,5 +1,8 @@
 .questions__form {
     max-width: 538px;
+    @media (max-width: 768px){
+        margin: 0 auto;
+    }
     .questions {
         border-radius: 5px;
         display: flex;
@@ -31,6 +34,7 @@
             justify-content: center;
             gap: 20px;
             label {
+                cursor: pointer;
                 color: $cTheme;
                 font-weight: 700;
                 font-size: 24px;
@@ -43,6 +47,12 @@
                     background-color: $cTheme;
                     color: #fff;
                 }
+            }
+        }
+        @media(max-width: 768px) {
+            gap: 0;
+            .one,.two {
+                border-radius: 0;
             }
         }
     }
@@ -85,11 +95,25 @@
         min-height: 300px;
         display: flex;
         justify-content: center;
+        .question {
+            padding: 0 10px;
+        }
+        @media(max-width:768px) {
+            min-height: 200px;
+            .question {
+                margin-bottom: 24px;
+            }
+        }
     }
+    
 }
 .secondButton {
     background-color: #fff;
     width: auto !important;
+    @media(max-width: 768px) {
+        margin-bottom: 60px !important;
+        margin-top: 40px !important;
+    }
 }
 .swiper-button-next,.swiper-button-prev {
     color: #fff !important;

@@ -1,0 +1,54 @@
+.overlay-purple {
+    position: relative;
+    &::before {
+        content: '';
+        position:absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='1440' height='800' viewBox='0 0 1440 800' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1440' height='800' fill='url(%23paint0_radial_331_623)'/%3E%3Cdefs%3E%3CradialGradient id='paint0_radial_331_623' cx='0' cy='0' r='1' gradientUnits='userSpaceOnUse' gradientTransform='translate(-531.904 1061.9) rotate(-21.6442) scale(4339.34 10285.8)'%3E%3Cstop offset='0.17525' stop-color='%23084C85' stop-opacity='0.6'/%3E%3Cstop offset='0.337522' stop-color='%235A2772' stop-opacity='0.666301'/%3E%3Cstop offset='0.725122' stop-color='%23D96800' stop-opacity='0.8'/%3E%3C/radialGradient%3E%3C/defs%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+.contact {
+    color: #fff;
+    min-height: 800px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .contact__info {
+            max-width: 427px;
+            &-title {
+                font-weight: 700;
+                font-size: 48px;
+                line-height: 57px;
+            }
+            &-text {
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 26px;
+
+            }
+            &-mail {
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 24px;
+                a {
+                    text-decoration: underline;
+                    color: #fff !important;
+                }
+            }
+        }
+        .contact__form {
+            .checkbox__wrapper {
+
+            }
+            button {
+
+            }
+        }
+    }
+}

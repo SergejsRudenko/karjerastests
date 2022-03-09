@@ -7,8 +7,11 @@ export function questionCard() {
     let title = document.querySelector('.left');
     questionsButton.addEventListener('click', () => {
         questionsForm.classList.add('block');
-        firstInfoCard.classList.add('none');
-        title.classList.add('none');
+        firstInfoCard.classList.toggle('none');
+        if(window.matchMedia( "(min-width: 769px)").matches) {
+            title.classList.toggle('none');
+        }
+        
     })
     answers.forEach( el => {
         let label = el.querySelectorAll('label');

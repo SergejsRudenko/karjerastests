@@ -53,7 +53,6 @@
     </div>
     </div>
     
-    <div class="edit-cookie__button">Sīkdatnes</div>
 </footer>
 
 </body>

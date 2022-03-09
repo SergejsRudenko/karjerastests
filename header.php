@@ -19,6 +19,6 @@
 
 	<?php wp_head(); ?>
 </head>
-
+<a href="/" class="logo"></a>
 <body <?php body_class(); ?>>
 
