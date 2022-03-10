@@ -18,7 +18,7 @@ get_header();
 				</div>
 				<div class="right">
 					<div class="hero__info">
-						<div class="hero__text">Ja reiz esi te ielūkojies/-usies, tātad meklē atbildes par to, kas ir tas, kas Tevi interesē un ko nākotnē varētu studēt.<br>Izpildot šo testu, Tev noteikti taps skaidrākas ja ne visas, tad dažas atbildes uz Taviem jautājumiem.</div>
+						<div class="hero__text">Ja reiz esi te ielūkojies/-usies, tātad meklē atbildes par to,kas Tevi interesē un ko nākotnē varētu studēt.<br>Izpildot šo testu, saņemsi atbildes uz tev aktuālajiem jautājumiem par studijām un nākotnes karjeru.</div>
 						<ul class="hero__list">
 							<li>Tests ir sadalīts divās daļās. </li>
 							<li>Izlasi rūpīgi jautājumus un sniedz godīgas atbildes, lai tests būtu pilnvērtīgs un Tev patiesi noderīgs! </li>

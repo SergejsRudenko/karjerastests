@@ -11,6 +11,8 @@ export function quizMobile() {
     let mainQuestionsTest = [];
     let followQuestionsTest = [];
     let mainDisplay = document.querySelector('.first__inner');
+    let contacts = document.querySelector('.contact');
+    document.querySelector('.button__link').classList.remove('none');
 
     for (let i=0; i < DOMFollowQuestions.length; i++) {
         let title = DOMFollowQuestions[i].dataset.title;
@@ -18,6 +20,7 @@ export function quizMobile() {
         let facultyName = DOMFollowQuestions[i].dataset.name;
         let description = DOMFollowQuestions[i].dataset.description;
         let page = DOMFollowQuestions[i].dataset.page;
+        let fullDescription = DOMFollowQuestions[i].dataset.full;
         followQuestionsTest[i] = {
             followQuestions: questions,
             ID: idCounter,
@@ -25,6 +28,7 @@ export function quizMobile() {
             name: facultyName,
             description: description,
             page: page,
+            fullDescription: fullDescription,
     };
     idCounter++;
     }
@@ -32,8 +36,11 @@ export function quizMobile() {
 
 
     let fallbackAnswers = [];
+
     function createPartTwo () {
         let currentDiv = document.querySelector("main");
+        let firstTitle = document.querySelector('.first__title');
+        firstTitle.innerText = 'Otrā jautājumu sadaļa';
         //Removes questions that are not in fallbackQuestions
         for (let item of Object.values(followQuestionsTest) ){
             if (!fallbackAnswers.includes(item.title)) {
@@ -44,6 +51,8 @@ export function quizMobile() {
         }
         let formCounter = 0;
         let counter = 0;
+
+
 
         //Creates forms and questions in them
         followQuestionsTest.forEach( element => {
@@ -84,6 +93,7 @@ export function quizMobile() {
 
 
                 formTwo.addEventListener("submit", function(event) {
+
                     // let wrapper = document.querySelectorAll('.wrapper');
                 
                     let data = new FormData(formTwo);
@@ -139,12 +149,21 @@ export function quizMobile() {
     function iterateSecondQuestions() {
         let secondForms = document.querySelectorAll('.partTwoForm');
         let wrapper = document.querySelectorAll('.wrapper');
+        let firstTitle = document.querySelector('.first__title');
         let counter = 0;
+        let questionCounter = 2;
+        firstTitle.innerText = `Otrā jautājumu sadaļa 1/${followQuestionsTest.length}`;
        
         secondForms.forEach(el => {
             el.addEventListener('submit', (event) => {
+                firstTitle.innerText = `Otrā jautājumu sadaļa ${questionCounter}/${followQuestionsTest.length}`;
+
                     if(wrapper.length-1 === counter){
+                        window.scrollTo({top: 0, behavior: 'smooth'});
+                        mainDisplay.classList.add('centerButton');
                         let submitButton = document.createElement('a');
+                        document.querySelector('.left').remove();
+                        document.querySelector('.right').remove();
                         submitButton.classList.add('resultsButton', 'featured__link');
                         document.querySelector('.first').classList.add('overlayMobile');
                         submitButton.setAttribute('href','#');
@@ -162,11 +181,14 @@ export function quizMobile() {
                           });
                     }
                     wrapper[counter].classList.add('none');
-                    wrapper[counter+1].classList.remove('none');
+                    if(wrapper.length != counter) {
+                        wrapper[counter+1].classList.remove('none');
+                    }
                     console.log(wrapper.length);
                     console.log(counter);
-                    window.scrollTo(0, 0);
+                    window.scrollTo({top: 0, behavior: 'smooth'});
                     counter++;
+                    questionCounter++;
                 event.preventDefault();
             },false);
         })
@@ -208,11 +230,27 @@ export function quizMobile() {
             }
         
         createFallBackAnswers();
+        if(fallbackAnswers.length === 0) {
+            console.log('fajaaa');
+            document.querySelector('.first').remove();
+            contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
+            contacts.classList.remove('none');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            event.preventDefault();
+            // throw new Error();
+        }
+        document.querySelector('.firstPart').classList.add('none');
         createPartTwo();
+        window.scrollTo({top: 0, behavior: 'smooth'});
         QuestionCard.questionCard();
         questionsForm.classList.remove('block');
         console.log(fallbackAnswers);
         SecondSlides.secondSlides();
+        createPrePartTwo();
+        document.querySelector('.second__questions').addEventListener('click', () => {
+        document.querySelector('.firstPart').classList.remove('none');
+        document.querySelector('.part__two').remove();
+        })
         event.preventDefault();
       }, false);
       //Create result card depending on result
@@ -223,6 +261,8 @@ export function quizMobile() {
           hero.classList.add('none');
           let main = document.querySelector('.results');
           main.classList.remove('none');
+          let contacts = document.querySelector('.contact');
+          contacts.classList.remove('none');
           let resultsContainer = document.createElement('div');
           resultsContainer.classList.add('container');
           resultsContainer.innerHTML = `
@@ -246,38 +286,41 @@ export function quizMobile() {
               let card = document.createElement('div');
               let percentScore = followQuestionsTest[i].percentScore;
               let title = followQuestionsTest[i].name;
+              let description = followQuestionsTest[i].fullDescription;
+
               console.log(followQuestionsTest);
               card.classList.add('cards__item');
               card.innerHTML = `
               <div class="cards__item-result">${percentScore}%<div class="ring"></div></div>
               <h3 class="cards__item-title">${title}</h3>
-              <p class="cards__item-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </p>
+              <div class="cards__item-text">${description}</div>
               <a href="${followQuestionsTest[i].page}" class="cards__item-button">uzzināt vairāk</a>
               `
               cards.insertAdjacentElement('beforeend', card);
           }
       }
       function createPrePartTwo() {
-          document.querySelector('.first__questions').remove();
-          let button = document.createElement('a');
-          let container = document.querySelector('.first__info');
-          let title = document.querySelector('.first__info-title');
-          let mainText = document.querySelector('.first__title');
-          let list = document.querySelector('.first__info-list');
-          button.classList.add('featured__link', 'second__questions');
-          button.setAttribute('href', '#');
-          button.innerText = 'Turpināt testu';
-          container.insertAdjacentElement('beforeend', button);
-          title.innerText = 'Tev labi izdodas! Tālāk turpini ar šiem apgalvojumiem – rūpīgi izlasi katru no tiem un atbildi uz tiem ar “jā” vai “nē”';
-          mainText.innerText = 'Otrā jautājumu sadaļa';
-          list.innerHTML = `
-          <li>6 jautājumi</li>
-          <li>Aptuvenais izpildes laiks: 3 minūtes </li>
-          `
+        document.querySelector('.first__questions').remove();
+        let container = document.createElement('div');
+        container.classList.add('container', 'part__two');
+        container.innerHTML = `
+        <div class="first__inner">
+              <div class="left">
+                  <h1 class="first__title">Otrā jautājumu sadaļa</h1>
+              </div>
+              <div class="right">
+                  <div class="first__info">
+                      <div class="first__info-title">Tev labi izdodas! Tālāk turpini ar šiem apgalvojumiem – rūpīgi izlasi katru no tiem un atbildi uz tiem ar “jā” vai “nē”'</div>
+                      <ul class="first__info-list">
+                          <li>~50 jautājumi</li>
+                          <li>Aptuvenais izpildes laiks: 5-15 minūtes </li>
+                      </ul>
+                      <div class="button__wrapper">
+                          <a href="#" class="featured__link second__questions">Turpināt Testu</a>
+                      </div>
+                  </div>
+          `;
+          document.querySelector('.first').insertAdjacentElement('afterbegin', container);
       }
 
     // });

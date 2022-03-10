@@ -15,21 +15,29 @@
     min-height: 800px;
     background-repeat: no-repeat;
     background-size: cover;
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 800px;
+    }
     &__inner {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        gap: 245px;
+        justify-content: center;
         .contact__info {
             max-width: 427px;
             &-title {
                 font-weight: 700;
                 font-size: 48px;
                 line-height: 57px;
+                margin-bottom: 24px;
             }
             &-text {
                 font-weight: 400;
                 font-size: 18px;
                 line-height: 26px;
+                margin-bottom: 24px;
 
             }
             &-mail {
@@ -43,12 +51,77 @@
             }
         }
         .contact__form {
+            display: flex;
+            flex-direction: column;
+            max-width: 427px;
+            input[type=text] {
+                color: #fff;
+                background: none !important;
+                border: none;
+                border-bottom: 1.2px solid #FFFFFF;
+                font-size: 18px;
+                line-height: 26px;
+                outline: none;
+                &::placeholder{
+                    color: #fff;
+                    font-size: 18px;
+                    line-height: 26px;
+                }
+                & + input[type=text] {
+                    margin-top: 32px;
+                }
+            }
             .checkbox__wrapper {
-
+                margin-top: 16px;
+                margin-bottom: 50px;
             }
             button {
-
+                max-width: 238px;
+                background: none;
+                color: #fff !important;
+                border-color: #fff !important;
             }
         }
+    }
+    @media(max-width: 768px) {
+        &__inner {
+            flex-direction: column;
+            gap: 56px;
+            padding: 0 20px;
+            margin-bottom: 100px;
+            margin-top: 100px;
+            .contact__form {
+                button {
+                    align-self: center;
+                }
+            }
+        }
+    }
+}
+.danger {
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-thickness: 2px;
+}
+.alert {
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+.contact__msg {
+    color: #7fd1a5;
+    font-size: 18px;
+    font-weight: 900;
+    border: 2px solid;
+    margin-top: 20px;
+    display: inline-block;
+    max-width: 250px;
+    width: 100%;
+    text-align: center;
+    @media(max-width:768px) {
+        margin-left: auto;
+        margin-right: auto;
     }
 }

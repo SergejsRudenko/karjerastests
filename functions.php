@@ -182,4 +182,82 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
+add_filter('wpcf7_form_elements', function( $content ) {
+	$dom = new DOMDocument();
+	$dom->preserveWhiteSpace = false;
+	$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+  
+	$xpath = new DomXPath($dom);
+	$spans = $xpath->query("//span[contains(@class, 'wpcf7-form-control-wrap')]" );
+  
+	foreach ( $spans as $span ) :
+	  $children = $span->firstChild;
+	  $span->parentNode->replaceChild( $children, $span );
+	endforeach;
+  
+	return $dom->saveHTML();
+  });
+  add_action( 'phpmailer_init', 'my_phpmailer_example' );
+  function my_phpmailer_example( $phpmailer ) {
+  
+	  $phpmailer->isSMTP();     
+	  $phpmailer->Host = 'smtp.timeweb.ru';
+	  $phpmailer->SMTPAuth = true; // Force it to use Username and Password to authenticate
+	  $phpmailer->Port = 25;
+	  $phpmailer->Username = 'info@consolestuff.eu';
+	  $phpmailer->Password = 'eHacae5F';
+  
+	  // Additional settings…
+	  //$phpmailer->SMTPSecure = "tls"; // Choose SSL or TLS, if necessary for your server
+	  $phpmailer->From = "info@consolestuff.eu";
+	  $phpmailer->FromName = "Wordpress";
+  }
+  add_action( 'wp_ajax_my_action', 'my_action_callback' );
+  add_action( 'wp_ajax_nopriv_my_action', 'my_action_callback' );
+  function my_action_callback() {
+	  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		  # get_option( 'admin_email');
+		  # FIX: Replace this email with recipient email
+		  $mail_to = 'sergejs.rudenko95@gmail.com';
+		  
+		  # Sender Data
+		  $name = trim($_POST["name"]);
+		  $email = trim($_POST["email"]);
+		  $message = trim($_POST["comment"]);
+		  
+		  if ( empty($name) OR empty($email) OR empty($message)) {
+			  # Set a 400 (bad request) response code and exit.
+			  http_response_code(400);
+			  echo "Please complete the form and try again.";
+			  exit;
+		  }
+		  
+		  # Mail Content
+		  $content = "Name: $name\n";
+		  $content .= "Email: $email\n\n";
+		  $content .= "Message:\n$message\n";
+  
+		  # email headers.
+		  $headers = "From: Wordpress <info@consolestuff.eu>";
+  
+		  # Send the email.
+		  $success = wp_mail($mail_to, $phone, $content, $headers);
+		  if ($success) {
+			  # Set a 200 (okay) response code.
+			  http_response_code(200);
+			  echo "Thank You! Your message has been sent.";
+		  } else {
+			  # Set a 500 (internal server error) response code.
+			  http_response_code(500);
+			  echo "Oops! Something went wrong, we couldn't send your message.";
+		  }
+  
+	  } else {
+		  # Not a POST request, set a 403 (forbidden) response code.
+		  http_response_code(403);
+		  echo "There was a problem with your submission, please try again.";
+	  }
+  
+	  // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+	  wp_die();
+  }

@@ -125,11 +125,13 @@
         height: 100%;
         &__inner {
             flex-direction: column;
+            padding: 0 20px;
             .left,.right {
                 width: 100%;
             }
             .left {
                 height: 100vh;
+                background-position: center;
                 .hero__title {
                     margin: 0 auto;
                     font-size: 69px;
@@ -140,7 +142,8 @@
             .right {
                 .hero__info {
                     margin: 0 auto;
-                    margin-top: 80px;
+                    padding-top: 110px;
+                    padding-bottom: 80px;
                 }
             }
         }

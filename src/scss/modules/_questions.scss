@@ -9,11 +9,12 @@
         flex-direction: column;
         gap: 48px;
         max-width: 538px;
+        width: 100%;
         .one,.two {
             padding: 40px;
             background: #fff;
             border-radius: 5px;
-            min-height: 175px;
+            min-height: 150px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -65,7 +66,8 @@
 }
 .swiper {
     display: flex;
-    width: 100vw;
+    // width: 100vw;
+    padding-bottom: 40px !important;
 }
 .swiper__second {
     width: 538px;
@@ -77,6 +79,7 @@
     left: 0 !important;
     width: 300px !important;
     top: 50%;
+    height: 20px;
 }
 .first__questions-form {
     display: none;
@@ -90,6 +93,9 @@
 .wrapper {
     .questions__form {
         background: #fff;
+    }
+    .swiper {
+        padding-bottom: 0 !important;
     }
     .questions {
         min-height: 300px;
@@ -109,6 +115,7 @@
 }
 .secondButton {
     background-color: #fff;
+    margin-top: 40px;
     width: auto !important;
     @media(max-width: 768px) {
         margin-bottom: 60px !important;
@@ -124,10 +131,13 @@
     }
 }
 .swiper-button-prev {
-    left: 30px !important;
+    top: 95% !important;
+    left: 20px !important;
 }
 .swiper-button-next {
-    right: 20% !important;
+    right: 10px !important;
+    left: auto;
+    top: 95% !important;
 }
 .second-slider-next {
     color: $cTheme !important;

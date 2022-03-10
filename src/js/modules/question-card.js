@@ -5,11 +5,28 @@ export function questionCard() {
     let questionsForm = document.querySelector('.first__questions-form');
     let firstInfoCard = document.querySelector('.first__info');
     let title = document.querySelector('.left');
+    let firsTitle = document.querySelector('.first__title');
+    let pagination = document.querySelector('.swiper-pagination');
+    let nexSlideButton = document.querySelector('.swiper-button-next');
+    let button = document.querySelector('.button__link');
+    
+
+    if(window.matchMedia( "(min-width: 769px)").matches) {
+        nexSlideButton.addEventListener('click', () => {
+            if(nexSlideButton.classList.contains('swiper-button-disabled')) {
+                button.classList.remove('none');
+            }
+        })
+    }
+
     questionsButton.addEventListener('click', () => {
+        if(window.matchMedia( "(min-width: 769px)").matches) {
+         firsTitle.insertAdjacentElement('beforeend', pagination);
+        }
         questionsForm.classList.add('block');
         firstInfoCard.classList.toggle('none');
         if(window.matchMedia( "(min-width: 769px)").matches) {
-            title.classList.toggle('none');
+            // title.classList.toggle('none');
         }
         
     })

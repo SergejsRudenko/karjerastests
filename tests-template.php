@@ -9,7 +9,7 @@ get_header();
 
 <main>
 	<section class="first overlay" style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/main.jpg';?>)">
-		<div class="container">
+		<div class="container firstPart">
 			<div class="first__inner">
 				<div class="left">
 					<h1 class="first__title">Pirmā jautājumu sadaļa</h1>
@@ -27,16 +27,12 @@ get_header();
 					</div>
 					<form action="" class="questions__form first__questions-form">
 		<div class="swiper desktop">
-			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper">
 				<?php
 				$counter = 0;
 				$counterNo = 1;
 						if( have_rows('main_questions') ): while ( have_rows('main_questions') ) : the_row();?>
 						<div class="swiper-slide">
-						<div class="left">
-							<h1 class="slider__title">Pirmā jautājumu sadaļa</h1>
-						</div>
 							<div class="questions">
 								<div class="one">      
 									<p class="question"><?php echo get_sub_field('question'); ?></p>
@@ -66,28 +62,19 @@ get_header();
 						endwhile; endif;
 				?>
  			</div>
-			    <!-- If we need pagination -->
-
-			<!-- If we need navigation buttons -->
+			   
 			<div class="swiper-button-prev">Atpakaļ</div>
 			<div class="swiper-button-next">Tālāk</div>
-
-			<!-- If we need scrollbar -->
 			<div class="swiper-pagination"></div>
-
 			</div>
-
-		<button type="submit" class="featured__link button__link">Turpināt</button>
+		<div class="firstButtonWrapper">
+			<button type="submit" class="featured__link button__link none">Turpināt</button>
+		</div>
 		</form>
 		<!-- <pre id="log"></pre> -->
 				</div>
 			</div>
 		</div>
-		<!-- Slider main container -->
-
-    <!-- Slides -->
-    
-
 	</section>
 	
 	<div class="container">
@@ -96,7 +83,7 @@ get_header();
 
 	<?php
 		if( have_rows('follow_questions') ): while ( have_rows('follow_questions') ) : the_row();?>
-		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" hidden>Hidden</div>
+		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-full="<?php echo get_sub_field('faculty_description');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" hidden>Hidden</div>
 	<?php 
 		endwhile; endif;
     ?>
@@ -104,7 +91,7 @@ get_header();
 		
 	</section>
 
-	<!-- <section class="contact overlay-purple" style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/contact.jpg';?>)">
+	<section class="contact overlay-purple none " style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/contact.jpg';?>)">
 		<div class="container">
 			<div class="contact__inner">
 				<div class="contact__info">
@@ -112,21 +99,27 @@ get_header();
 					<div class="contact__info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
 					<div class="contact__info-mail">Piesakies konsultācijai aizpildot kontaktformu vai rakstot uz e-pastu <a href="mailto: karjera@lu.lv" class="">karjera@lu.lv</a></div>
 				</div>
-				<form action="" class="contact__form">
+				<!-- <?php echo do_shortcode('[contact-form-7 id="43" title="Untitled" html_class="contact__form"]'); ?> -->
+				<form action="<?php echo admin_url('admin-ajax.php');?>" method="post" class="contact__form">
+					
+					<input type="hidden" name="action" value="my_action">
 					<input type="text" name="name" id="" placeholder="Vārds, Uzvārds *" required>
 					<input type="text" name="email" id="" placeholder="E-pasts *" required>
 					<input type="text" name="comment" id="" placeholder="Komentārs">
 					<div class="checkbox__wrapper">
-						<input type="checkbox" name="accept" id="checkbox">
+						<input type="checkbox" name="accept" id="checkbox" required>
 						<label for="checkbox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </label>
 					</div>
-					<button type="submit">Pieteikties</button>
+					<button class="featured__link" type="submit">Pieteikties</button>
+					<div class="alert alert-success contact__msg" style="display: none" role="alert">
+						Paldies, jūsu ziņa aizūtīta.
+					</div>
 				</form>
 			</div>
 		</div>
-	</section> -->
-</main>
+	</section>
 
+</main>
 <?php
 get_sidebar();
 get_footer();
