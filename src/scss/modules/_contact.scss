@@ -20,6 +20,10 @@
         justify-content: center;
         align-items: center;
         min-height: 800px;
+        @media (max-width: 480px){
+            justify-content: initial;
+            flex-direction: column;
+        }
     }
     &__inner {
         display: flex;
@@ -49,11 +53,30 @@
                     color: #fff !important;
                 }
             }
+
+        }
+        .wpcf7 {
+            max-width: 427px;
+            width: 100%;
+            .contact__form {
+                 p {
+                     margin: 0;
+                    .wpcf7-form-control-wrap {
+                     display: block;
+                        & +.wpcf7-form-control-wrap {margin-bottom: 32px !important;}
+                    }
+                }
+            }
+            .wpcf7-list-item {
+                margin: 0;
+            }
+           
         }
         .contact__form {
             display: flex;
             flex-direction: column;
             max-width: 427px;
+            width: 100%;
             input[type=text] {
                 color: #fff;
                 background: none !important;
@@ -70,6 +93,9 @@
                 & + input[type=text] {
                     margin-top: 32px;
                 }
+                @media(max-width:480px) {
+                    font-size: inherit;
+                }
             }
             .checkbox__wrapper {
                 margin-top: 16px;
@@ -81,6 +107,7 @@
                 color: #fff !important;
                 border-color: #fff !important;
             }
+            
         }
     }
     @media(max-width: 768px) {
@@ -96,6 +123,22 @@
                 }
             }
         }
+    }
+    @media(max-width: 480px) {
+        &__inner {
+            max-width: 350px;
+            padding: 0;
+            overflow-x: hidden;
+        }
+    }
+}
+.contact__button {
+    transition: all 0.3s;
+    background: none;
+    color: #fff !important;
+    border-color: #fff !important;
+    &:hover {
+        transform: scale(1.05);
     }
 }
 .danger {

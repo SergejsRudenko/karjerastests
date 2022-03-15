@@ -56,7 +56,7 @@
 <footer class="footer">
     <div class="container">
         <div class="footer__inner">
-            <a href="#" class="footer__logo"></a>
+            <a href="https://www.lu.lv/" class="footer__logo"></a>
             <div class="footer__social">
                 <div class="footer__social-title">Seko mums</div>
                 <ul>
@@ -76,7 +76,7 @@
                     <li><a href="https://www.lu.lv/par-mums/par-lu/" target="_blank">Par LU</a></li>
                 </ul>
             </div>
-            <div class="footer__badges none">
+            <div class="footer__badges">
                 <img src="<?php echo get_template_directory_uri() . '/assets/images/badge_1.png' ?>" alt="">
                 <img src="<?php echo get_template_directory_uri() . '/assets/images/badge_1.png' ?>" alt="">
                 <img src="<?php echo get_template_directory_uri() . '/assets/images/badge_2.png' ?>" alt="">

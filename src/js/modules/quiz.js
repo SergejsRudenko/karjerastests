@@ -32,7 +32,7 @@ export function quiz() {
     };
     idCounter++;
     }
-    console.log(followQuestionsTest);
+    // console.log(followQuestionsTest);
 
 
     let fallbackAnswers = [];
@@ -175,18 +175,21 @@ export function quiz() {
                         const submitResults = document.querySelector(".resultsButton");
                         //Submit results 
                          submitResults.addEventListener('click', () => {
-                          for(let item of followQuestionsTest ) {
-                              console.log(item.percentScore);
-                              console.log(followQuestionsTest);
-                          }
+                        //   for(let item of followQuestionsTest ) {
+                        //       console.log(item.percentScore);
+                        //       console.log(followQuestionsTest);
+                        //   }
+                          sendGAEvent('Apskatījas rezultātus', {
+                            'event_category' : 'Apskatījas rezultātus',
+                            'event_label' : 'Apskatījas rezultātus'
+                          });
                           createResultCard();
-                          
                           });
                     }
                     wrapper[counter].classList.add('none');
                     wrapper[counter+1].classList.remove('none');
-                    console.log(wrapper.length);
-                    console.log(counter);
+                    // console.log(wrapper.length);
+                    // console.log(counter);
                     counter++;
                     questionCounter++;
                 event.preventDefault();
@@ -199,7 +202,7 @@ export function quiz() {
         mainQuestionsTest.forEach( el => {
             if (el.questionOneAnswer === 'true' && el.questionTwoAnswer === 'true'){
                 fallbackAnswers = fallbackAnswers.concat(el.fallBackQuestions);
-                console.log(fallbackAnswers);
+                // console.log(fallbackAnswers);
             }
         });
     }
@@ -243,12 +246,16 @@ export function quiz() {
         createPartTwo();
         QuestionCard.questionCard();
         questionsForm.classList.remove('block');
-        console.log(fallbackAnswers);
+        // console.log(fallbackAnswers);
         SecondSlides.secondSlides();
         createPrePartTwo();
         document.querySelector('.second__questions').addEventListener('click', () => {
         document.querySelector('.firstPart').classList.remove('none');
         document.querySelector('.part__two').remove();
+        sendGAEvent('Sāka testa otro daļu', {
+            'event_category' : 'Sāka testa otro daļu',
+            'event_label' : 'Sāka testa otro daļu'
+          });
         })
         event.preventDefault();
       }, false);
@@ -287,7 +294,7 @@ export function quiz() {
               let percentScore = followQuestionsTest[i].percentScore;
               let title = followQuestionsTest[i].name;
               let description = followQuestionsTest[i].fullDescription;
-              console.log(followQuestionsTest);
+            //   console.log(followQuestionsTest);
               card.classList.add('cards__item');
               card.innerHTML = `
               <div class="cards__item-result">${percentScore}%<div class="ring"></div></div>
@@ -322,6 +329,10 @@ export function quiz() {
             document.querySelector('.first').insertAdjacentElement('afterbegin', container);
             
       }
+      function sendGAEvent(event, data){
+        console.log(event, data);
+        gtag('event', event, data);
+    }
 
     // });
     // writeAnswers();

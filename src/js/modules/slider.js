@@ -1,3 +1,4 @@
+import { reset } from 'browser-sync';
 import Swiper from 'swiper/bundle';
 
 export function slider(){
@@ -32,4 +33,13 @@ export function slider(){
           }
         }
       });
+      // let swiper = document.querySelector('.swiper').swiper;
+      // let slides = document.querySelectorAll('.swiper-slide > .questions');
+      // let inputs = slides[0].querySelectorAll('.question__input');
+      // let inputsArr = Array.from(inputs);
+      // inputsArr.reduce(function(result, value, index, array) {
+      //   if (index % 2 === 0)
+      //     result.push(array.slice(index, index + 2));
+      //   return result;
+      // }, []);
 }

@@ -18,6 +18,13 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<?php wp_head(); ?>
+	<?php $ga_id = 'G-5H60KWS93Q'; ?>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $ga_id; ?>"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+	</script>
 </head>
 <a href="/" class="logo"></a>
 <body <?php body_class(); ?>>

@@ -9,7 +9,11 @@ export function questionCard() {
     let pagination = document.querySelector('.swiper-pagination');
     let nexSlideButton = document.querySelector('.swiper-button-next');
     let button = document.querySelector('.button__link');
-    
+
+    function sendGAEvent(event, data){
+        console.log(event, data);
+        gtag('event', event, data);
+    }
 
     if(window.matchMedia( "(min-width: 769px)").matches) {
         nexSlideButton.addEventListener('click', () => {
@@ -22,9 +26,21 @@ export function questionCard() {
     questionsButton.addEventListener('click', () => {
         if(window.matchMedia( "(min-width: 769px)").matches) {
          firsTitle.insertAdjacentElement('beforeend', pagination);
+         $(".first__questions").on("click", function(e){
+            sendGAEvent('Sāka testu', {
+              'event_category' : 'Sāka testu',
+              'event_label' : 'Sāka testu'
+            });
+        });
         }
         questionsForm.classList.add('block');
         firstInfoCard.classList.toggle('none');
+        $(".first__questions").on("click", function(e){
+            sendGAEvent('Sāka testu', {
+              'event_category' : 'Sāka testu',
+              'event_label' : 'Sāka testu'
+            });
+        });
         if(window.matchMedia( "(min-width: 769px)").matches) {
             // title.classList.toggle('none');
         }

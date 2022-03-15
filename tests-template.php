@@ -37,18 +37,18 @@ get_header();
 								<div class="one">      
 									<p class="question"><?php echo get_sub_field('question'); ?></p>
 									<div class="answers">
-										<input type="radio" value="true" id="answerYes<?php echo $counter; ?>" hidden name="question<?php echo $counter; ?>">
+										<input type="radio" value="true" id="answerYes<?php echo $counter; ?>" class="question__input" hidden name="question<?php echo $counter; ?>">
 										<label for="answerYes<?php echo $counter; ?>">JĀ</label>
-										<input type="radio" value="false" id="answerNo<?php echo $counter; ?>" hidden name="question<?php echo $counter; ?>">
+										<input type="radio" value="false" id="answerNo<?php echo $counter; ?>" class="question__input" hidden name="question<?php echo $counter; ?>">
 										<label for="answerNo<?php echo $counter; ?>">NĒ</label>
 									</div>
 								</div>
 								<div class="two">
 									<p class="question"><?php echo get_sub_field('question_two');?></p>
 									<div class="answers">
-										<input type="radio" value="true" id="answerYes<?php echo $counterNo; ?>" hidden name="question<?php echo $counterNo;?>">
+										<input type="radio" value="true" id="answerYes<?php echo $counterNo; ?>" class="question__input" hidden name="question<?php echo $counterNo;?>">
 										<label for="answerYes<?php echo $counterNo; ?>">JĀ</label>
-										<input type="radio" value="false" id="answerNo<?php echo $counterNo; ?>" hidden name="question<?php echo $counterNo;?>">
+										<input type="radio" value="false" id="answerNo<?php echo $counterNo; ?>" class="question__input" hidden name="question<?php echo $counterNo;?>">
 										<label for="answerNo<?php echo $counterNo; ?>">NĒ</label>
 									</div>
 								</div>
@@ -96,11 +96,11 @@ get_header();
 			<div class="contact__inner">
 				<div class="contact__info">
 					<div class="contact__info-title">Vēlies saņemt vairāk informācijas?</div>
-					<div class="contact__info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
+					<!-- <div class="contact__info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div> -->
 					<div class="contact__info-mail">Piesakies konsultācijai aizpildot kontaktformu vai rakstot uz e-pastu <a href="mailto: karjera@lu.lv" class="">karjera@lu.lv</a></div>
 				</div>
-				<!-- <?php echo do_shortcode('[contact-form-7 id="43" title="Untitled" html_class="contact__form"]'); ?> -->
-				<form action="<?php echo admin_url('admin-ajax.php');?>" method="post" class="contact__form">
+				<?php echo do_shortcode('[contact-form-7 id="105" title="Untitled" html_class="contact__form"]'); ?>
+				<!-- <form action="<?php echo admin_url('admin-ajax.php');?>" method="post" class="contact__form">
 					
 					<input type="hidden" name="action" value="my_action">
 					<input type="text" name="name" id="" placeholder="Vārds, Uzvārds *" required>
@@ -108,13 +108,13 @@ get_header();
 					<input type="text" name="comment" id="" placeholder="Komentārs">
 					<div class="checkbox__wrapper">
 						<input type="checkbox" name="accept" id="checkbox" required>
-						<label for="checkbox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </label>
+						<label for="checkbox">Piekrītu privātuma politikai</label>
 					</div>
-					<button class="featured__link" type="submit">Pieteikties</button>
+					<button class="featured__link contact__button" type="submit">Pieteikties</button>
 					<div class="alert alert-success contact__msg" style="display: none" role="alert">
 						Paldies, jūsu ziņa aizūtīta.
 					</div>
-				</form>
+				</form> -->
 			</div>
 		</div>
 	</section>
