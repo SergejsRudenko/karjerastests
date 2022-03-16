@@ -20,6 +20,7 @@ export function quiz() {
         let description = DOMFollowQuestions[i].dataset.description;
         let page = DOMFollowQuestions[i].dataset.page;
         let fullDescription = DOMFollowQuestions[i].dataset.full;
+        let color = DOMFollowQuestions[i].dataset.color;
         followQuestionsTest[i] = {
             followQuestions: questions,
             ID: idCounter,
@@ -28,7 +29,7 @@ export function quiz() {
             description: description,
             page: page,
             fullDescription: fullDescription,
-
+            color: color,
     };
     idCounter++;
     }
@@ -72,23 +73,26 @@ export function quiz() {
                 `
                 currentDiv.insertAdjacentElement('beforeend', container);
                 let formContainer = document.querySelector(`.questions__${formCounter} > .swiper > .swiper-wrapper`);
-                
+                let paginationCounter = 1;
                 // while(Object.keys(element)[counter] !='ID'){
                     for (let i = 0; i < element.followQuestions.length; i++) {
                         let ID = element.ID;
                          let newDiv = document.createElement("div");
-                    newDiv.innerHTML = `<p class="question">${element.followQuestions[i]}</p>
+                    newDiv.innerHTML = `
+                    <div class="pagination"><span>${paginationCounter}</span>/${element.followQuestions.length}</div>
+                    <p class="question">${element.followQuestions[i]}</p>
                     <div class="answers">
                         <input type="radio" value="1" id="secondAnswerYes${ID}${i}" name="question${ID}${i}" hidden>
                         <label class="testLabel" for="secondAnswerYes${ID}${i}">JĀ</label>
                         <input type="radio" value="0" id="secondAnswerNo${ID}${i}" name="question${ID}${i}" hidden>
                         <label class="testLabel" for="secondAnswerNo${ID}${i}">NĒ</label>
                     </div>`;
-                    newDiv.classList.add('questions','swiper-slide', 'swiper-no-swiping');
+                    newDiv.classList.add('questions','swiper-slide', 'swiper-no-swiping','swiper-slide-two');
                     formContainer.insertAdjacentElement('beforeend', newDiv);
+                    paginationCounter++;
                     }
                 const div = document.createElement('div');
-                div.classList.add('swiper-slide','lastButton');
+                div.classList.add('lastButton');
                 const secondButton = document.createElement("button");
                 secondButton.classList.add('featured__link' ,'secondButton');
                 secondButton.setAttribute('type', 'submit');
@@ -121,7 +125,7 @@ export function quiz() {
                 formCounter++;
 
         })
-        let swiper = document.querySelectorAll('.swiper');
+        let swiper = document.querySelectorAll('.swiper__second');
         for( let i=0; i< swiper.length; i++ ) {
   
             var slider = new Swiper('.swiper' + i, {
@@ -143,7 +147,29 @@ export function quiz() {
                 },
                     });
           }
-          
+            // let inputs = slides[0].querySelectorAll('.question__input');
+            // let inputsArr = Array.from(inputs);
+            swiper.forEach(el => {
+                let slides = el.querySelectorAll('.swiper-slide-two');
+                let nexSlideButton = el.querySelector('.swiper-button-next');
+                let button = el.querySelector('.secondButton');
+                for (let i = 0; i < slides.length; i++) {
+                    let inputs = slides[i].querySelectorAll('input');
+                    let inputsArr = Array.from(inputs);
+                    for (let j = 0; j < inputsArr.length; j++) {
+                        inputsArr[j].addEventListener('click', () => {
+                            if(inputsArr[0].checked || inputsArr[1].checked) {
+                            el.swiper.slideNext();
+                            if(nexSlideButton.classList.contains('swiper-button-disabled') & slides.length-1 === i) {
+                                button.click();
+                            }
+                            }
+                        })
+                    }
+                    
+                }
+            })
+
           
             Slider.slider();
             iterateSecondQuestions();
@@ -156,13 +182,17 @@ export function quiz() {
         let firstTitle = document.querySelector('.first__title');
         let counter = 0;
         let questionCounter = 2;
+        let swiper = document.querySelectorAll('.swiper__second');
+
         firstTitle.innerText = `Otrā jautājumu sadaļa 1/${followQuestionsTest.length}`;
     
         secondForms.forEach(el => {
             
             el.addEventListener('submit', (event) => {
                      firstTitle.innerText = `Otrā jautājumu sadaļa ${questionCounter}/${followQuestionsTest.length}`;
-
+                     if(!(wrapper.length-1 === counter)){
+                        swiper[counter+1].swiper.slideTo(0,1,false);
+                     }
                     if(wrapper.length-1 === counter){
                         let submitButton = document.createElement('a');
                         document.querySelector('.left').remove();
@@ -184,6 +214,7 @@ export function quiz() {
                             'event_label' : 'Apskatījas rezultātus'
                           });
                           createResultCard();
+
                           });
                     }
                     wrapper[counter].classList.add('none');
@@ -267,6 +298,7 @@ export function quiz() {
           let hero = document.querySelector('.first');
           hero.classList.add('none');
           let main = document.querySelector('.results');
+          main.classList.add(`${followQuestionsTest[0].color}`);
           let contacts = document.querySelector('.contact');
           contacts.classList.remove('none');
           main.classList.remove('none');
@@ -282,7 +314,7 @@ export function quiz() {
 			</div>
           `
           main.insertAdjacentElement('beforeend', resultsContainer);
-
+        
           let container = document.createElement('div');
           let cards = document.createElement('div');
           container.classList.add('container');
@@ -297,13 +329,47 @@ export function quiz() {
             //   console.log(followQuestionsTest);
               card.classList.add('cards__item');
               card.innerHTML = `
-              <div class="cards__item-result">${percentScore}%<div class="ring"></div></div>
+              <div class="cards__item-result">${percentScore}%
+              <svg
+              class="ring"
+              width="120"
+              height="120">
+             <circle
+               class="progress-ring__circle"
+               stroke=""
+               stroke-width="8"
+               fill="transparent"
+               r="52"
+               cx="60"
+               cy="60"/>
+           </svg>
+           </div></div>
               <h3 class="cards__item-title">${title}</h3>
               <div class="cards__item-text">${description}</div>
               <a href="${followQuestionsTest[i].page}" class="cards__item-button">uzzināt vairāk</a>
               `
+
               cards.insertAdjacentElement('beforeend', card);
+
+              let circle = document.querySelectorAll('.progress-ring__circle');
+              if(percentScore < 30) {
+                  circle[i].style.scroke = '#DD2A27';
+              } else if(percentScore >=30 && percentScore < 75) {
+                  circle[i].style.stroke = '#93911B';
+              } else {
+                  circle[i].style.stroke = '#7FD1A5';
+              }
+              let radius = circle[i].r.baseVal.value;
+              let circumference = radius * 2 * Math.PI;
+
+            
+              circle[i].style.strokeDasharray = `${circumference} ${circumference}`;
+              circle[i].style.strokeDashoffset = `${circumference}`;
+
+              const offset = circumference - percentScore / 100 * circumference;
+              circle[i].style.strokeDashoffset = offset;
           }
+
       }
       function createPrePartTwo() {
           document.querySelector('.first__questions').remove();

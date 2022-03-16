@@ -29,7 +29,7 @@ input:-webkit-autofill:active {
             height: 800px;
         }
         @media(max-width:480px) {
-            height: auto;
+            height: 100%;
         }
     }
 }
@@ -58,6 +58,9 @@ input:-webkit-autofill:active {
     .firstButtonWrapper {
         background: #fff;
         padding-bottom: 40px;
+        @media (max-width: 768px) {
+            padding-bottom: 0;
+        }
         .button__link {
             margin-top: 0;
             margin-bottom: 0;
@@ -69,6 +72,21 @@ input:-webkit-autofill:active {
             margin: 0 auto;
         }
         // margin-bottom: 80px;
+    }
+    .firstPart {
+    }
+    .mobileOverlay {
+        position: relative;
+        padding-bottom: 80px !important;
+        &::after {
+            content: '';
+            width: 100%;
+            background-color: #EBF5FF;
+            position: absolute;
+            bottom:0;
+            height: 63%;
+            z-index: -1;
+        }
     }
 }
 .button__link {

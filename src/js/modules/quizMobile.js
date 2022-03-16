@@ -12,7 +12,6 @@ export function quizMobile() {
     let followQuestionsTest = [];
     let mainDisplay = document.querySelector('.first__inner');
     let contacts = document.querySelector('.contact');
-    document.querySelector('.button__link').classList.remove('none');
 
     for (let i=0; i < DOMFollowQuestions.length; i++) {
         let title = DOMFollowQuestions[i].dataset.title;
@@ -21,6 +20,7 @@ export function quizMobile() {
         let description = DOMFollowQuestions[i].dataset.description;
         let page = DOMFollowQuestions[i].dataset.page;
         let fullDescription = DOMFollowQuestions[i].dataset.full;
+        let color = DOMFollowQuestions[i].dataset.color;
         followQuestionsTest[i] = {
             followQuestions: questions,
             ID: idCounter,
@@ -29,10 +29,11 @@ export function quizMobile() {
             description: description,
             page: page,
             fullDescription: fullDescription,
+            color: color,
     };
     idCounter++;
     }
-    console.log(followQuestionsTest);
+    // console.log(followQuestionsTest);
 
 
     let fallbackAnswers = [];
@@ -68,24 +69,27 @@ export function quizMobile() {
                 `
                 currentDiv.insertAdjacentElement('beforeend', container);
                 let formContainer = document.querySelector(`.questions__${formCounter}`);
-                
+                let paginationCounter = 1;
                 // while(Object.keys(element)[counter] !='ID'){
                     for (let i = 0; i < element.followQuestions.length; i++) {
                         let ID = element.ID;
                          let newDiv = document.createElement("div");
-                    newDiv.innerHTML = `<p class="question">${element.followQuestions[i]}</p>
+                    newDiv.innerHTML = `
+                    <div class="pagination"><span>${paginationCounter}</span>/${element.followQuestions.length}</div>
+                    <p class="question">${element.followQuestions[i]}</p>
                     <div class="answers">
-                        <input type="radio" value="1" id="secondAnswerYes${ID}${i}" name="question${ID}${i}" hidden>
+                        <input type="radio" value="1" id="secondAnswerYes${ID}${i}" input_two name="question${ID}${i}" hidden>
                         <label for="secondAnswerYes${ID}${i}">JĀ</label>
-                        <input type="radio" value="0" id="secondAnswerNo${ID}${i}" name="question${ID}${i}" hidden>
+                        <input type="radio" value="0" id="secondAnswerNo${ID}${i}" input_two name="question${ID}${i}" hidden>
                         <label for="secondAnswerNo${ID}${i}">NĒ</label>
                     </div>`;
-                    newDiv.classList.add('questions','swiper-slide');
+                    newDiv.classList.add('questions','swiper-slide','swiper-slide-two');
                     formContainer.insertAdjacentElement('beforeend', newDiv);
+                    paginationCounter++;
                     }
 
                 const secondButton = document.createElement("button");
-                secondButton.classList.add('swiper-slide', 'featured__link' ,'secondButton');
+                secondButton.classList.add('swiper-slide', 'featured__link' ,'secondButton', 'none');
                 secondButton.setAttribute('type', 'submit');
                 secondButton.innerText = 'Turpināt';
                 formContainer.insertAdjacentElement('beforeend', secondButton);
@@ -116,34 +120,56 @@ export function quizMobile() {
                 formCounter++;
 
         })
-        let swiper = document.querySelectorAll('.swiper');
-        for( let i=0; i< swiper.length; i++ ) {
-  
-            const slider = new Swiper('.swiper' + i, {
-                // If we need pagination
-                pagination: {
-                    el: '.swiper-pagination',
-                    type: 'fraction',
-                },
-                
-                // Navigation arrows
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                
-                // And if we need scrollbar
-                scrollbar: {
-                    el: '.swiper-scrollbar',
-                },
-                allowTouchMove: false,
-                    });
-                    slider.allowTouchMove(false);
-          }
+        // let swiper = document.querySelectorAll('.swiper');
+        // for( let i=0; i< swiper.length; i++ ) {
+        //     const slider = new Swiper('.swiper' + i, {
+        //         // If we need pagination
+        //         pagination: {
+        //             el: '.swiper-pagination',
+        //             type: 'fraction',
+        //         },
+        //         // Navigation arrows
+        //         navigation: {
+        //             nextEl: '.swiper-button-next',
+        //             prevEl: '.swiper-button-prev',
+        //         },
+        //         // And if we need scrollbar
+        //         scrollbar: {
+        //             el: '.swiper-scrollbar',
+        //         },
+        //         allowTouchMove: false,
+        //             });
+        //             slider.allowTouchMove(false);
+        //   }
+          let wrapper = document.querySelectorAll('.partTwoForm');
+          let slideCounter = 1;
+          let buttonCounter = 0;
+
           
+          wrapper.forEach(el => {
+            let slides = el.querySelectorAll('.swiper-slide-two');
+            let button = el.querySelector('.secondButton');
+            for (let i = 0; i < slides.length; i++) {
+                let inputs = slides[i].querySelectorAll('input');
+                let inputsArr = Array.from(inputs);
+                // console.log(inputsArr);
+                for (let j = 0; j < inputsArr.length; j++) {
+                    inputsArr[j].addEventListener('click', () => {
+                        if(slideCounter === slides.length) {
+                            counter = 0;
+                            slideCounter = 0;
+                            buttonCounter++;
+                            button.click();
+                        }
+                        slideCounter++;
+                    })
+                }
+            }
+          })
+
             Slider.slider();
             iterateSecondQuestions();
-          
+
     }
   
     function iterateSecondQuestions() {
@@ -159,6 +185,8 @@ export function quizMobile() {
                 firstTitle.innerText = `Otrā jautājumu sadaļa ${questionCounter}/${followQuestionsTest.length}`;
 
                     if(wrapper.length-1 === counter){
+                        let mobileOverlay = document.querySelector('.mobileOverlay');
+                        mobileOverlay.classList.remove('mobileOverlay');
                         window.scrollTo({top: 0, behavior: 'smooth'});
                         mainDisplay.classList.add('centerButton');
                         let submitButton = document.createElement('a');
@@ -172,10 +200,10 @@ export function quizMobile() {
                         const submitResults = document.querySelector(".resultsButton");
                         //Submit results 
                          submitResults.addEventListener('click', () => {
-                          for(let item of followQuestionsTest ) {
-                              console.log(item.percentScore);
-                              console.log(followQuestionsTest);
-                          }
+                        //   for(let item of followQuestionsTest ) {
+                        //       console.log(item.percentScore);
+                        //       console.log(followQuestionsTest);
+                        //   }
                           createResultCard();
                           
                           });
@@ -184,8 +212,8 @@ export function quizMobile() {
                     if(wrapper.length != counter) {
                         wrapper[counter+1].classList.remove('none');
                     }
-                    console.log(wrapper.length);
-                    console.log(counter);
+                    // console.log(wrapper.length);
+                    // console.log(counter);
                     window.scrollTo({top: 0, behavior: 'smooth'});
                     counter++;
                     questionCounter++;
@@ -198,7 +226,7 @@ export function quizMobile() {
         mainQuestionsTest.forEach( el => {
             if (el.questionOneAnswer === 'true' && el.questionTwoAnswer === 'true'){
                 fallbackAnswers = fallbackAnswers.concat(el.fallBackQuestions);
-                console.log(fallbackAnswers);
+                // console.log(fallbackAnswers);
             }
         });
     }
@@ -231,7 +259,7 @@ export function quizMobile() {
         
         createFallBackAnswers();
         if(fallbackAnswers.length === 0) {
-            console.log('fajaaa');
+            // console.log('fajaaa');
             document.querySelector('.first').remove();
             contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
             contacts.classList.remove('none');
@@ -244,7 +272,8 @@ export function quizMobile() {
         window.scrollTo({top: 0, behavior: 'smooth'});
         QuestionCard.questionCard();
         questionsForm.classList.remove('block');
-        console.log(fallbackAnswers);
+        questionsForm.classList.remove('flex-column-reverse');
+        // console.log(fallbackAnswers);
         SecondSlides.secondSlides();
         createPrePartTwo();
         document.querySelector('.second__questions').addEventListener('click', () => {
@@ -261,6 +290,7 @@ export function quizMobile() {
           hero.classList.add('none');
           let main = document.querySelector('.results');
           main.classList.remove('none');
+          main.classList.add(`${followQuestionsTest[0].color}`);
           let contacts = document.querySelector('.contact');
           contacts.classList.remove('none');
           let resultsContainer = document.createElement('div');
@@ -288,15 +318,46 @@ export function quizMobile() {
               let title = followQuestionsTest[i].name;
               let description = followQuestionsTest[i].fullDescription;
 
-              console.log(followQuestionsTest);
+            //   console.log(followQuestionsTest);
               card.classList.add('cards__item');
               card.innerHTML = `
-              <div class="cards__item-result">${percentScore}%<div class="ring"></div></div>
+              <div class="cards__item-result">${percentScore}%
+              <svg
+              class="ring"
+              width="120"
+              height="120">
+             <circle
+               class="progress-ring__circle"
+               stroke=""
+               stroke-width="8"
+               fill="transparent"
+               r="52"
+               cx="60"
+               cy="60"/>
+           </svg>
+           </div>
               <h3 class="cards__item-title">${title}</h3>
               <div class="cards__item-text">${description}</div>
               <a href="${followQuestionsTest[i].page}" class="cards__item-button">uzzināt vairāk</a>
               `
               cards.insertAdjacentElement('beforeend', card);
+              let circle = document.querySelectorAll('.progress-ring__circle');
+              if(percentScore < 30) {
+                  circle[i].style.scroke = '#DD2A27';
+              } else if(percentScore >=30 && percentScore < 75) {
+                  circle[i].style.stroke = '#93911B';
+              } else {
+                  circle[i].style.stroke = '#7FD1A5';
+              }
+              let radius = circle[i].r.baseVal.value;
+              let circumference = radius * 2 * Math.PI;
+
+            
+              circle[i].style.strokeDasharray = `${circumference} ${circumference}`;
+              circle[i].style.strokeDashoffset = `${circumference}`;
+
+              const offset = circumference - percentScore / 100 * circumference;
+              circle[i].style.strokeDashoffset = offset;
           }
       }
       function createPrePartTwo() {

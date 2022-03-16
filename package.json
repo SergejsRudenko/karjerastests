@@ -10,7 +10,7 @@
   "author": "mp_sergejs",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.27.8",
+    "browser-sync": "^2.27.7",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",

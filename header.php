@@ -25,6 +25,48 @@
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 	</script>
+	
+	<?php $cookies = get_fields('options')['cookies']; ?>
+<script>
+	function endableCookies(){
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GTA-CODE');
+	}
+</script>	
+<!-- Cookie Consent by https://www.CookieConsent.com -->
+<script>
+    var cookie_dialog = <?php echo json_encode($cookies['cookie_notice_data'], JSON_HEX_APOS); ?>;
+        cookie_dialog = cookie_dialog.replace(/'/g, '"');
+    var cookieTranslationEN = cookie_dialog;
+</script>	
+
+<script type="text/javascript" src="<?php bloginfo("template_url"); ?>/assets/js/build/cookieconsent.min.js" async></script>
+<!-- aaa --> 
+<script type="text/plain" cookie-consent="strictly-necessary">
+</script>
+<!-- end of aaa-->
+
+<!-- bbb -->
+<script type="text/plain" cookie-consent="functionality">
+
+</script>
+<!-- end of bbb-->
+
+<!-- tracker -->
+<script type="text/plain" cookie-consent="tracking">
+
+</script>
+<!-- end of tracker-->
+<!-- adds -->
+<script type="text/plain" cookie-consent="targeting">
+    endableCookies();
+</script>
+<!-- end of adds-->
+
+<noscript>ePrivacy and GPDR Cookie Consent by <a href="https://www.CookieConsent.com/" rel="nofollow noopener">Cookie Consent</a></noscript>
+<!-- End Cookie Consent by https://www.CookieConsent.com -->
 </head>
 <a href="/" class="logo"></a>
 <body <?php body_class(); ?>>

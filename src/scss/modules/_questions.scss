@@ -51,7 +51,7 @@
             }
         }
         @media(max-width: 768px) {
-            gap: 0;
+            gap: 18px;
             .one,.two {
                 border-radius: 0;
             }
@@ -83,6 +83,11 @@
 }
 .first__questions-form {
     display: none;
+    @media(max-width:768px) {
+        & .questions {
+            margin-bottom: 18px;
+        }
+    }
 }
 .none {
     display: none !important;
@@ -90,23 +95,69 @@
 .block {
     display: block !important;
 }
+.flex-column-reverse {
+    display: flex !important;
+    flex-direction: column-reverse;
+}
+.mobilePagination {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 16px;
+}
+@media(min-width:769px){
+    .mobilePagination {
+        display: none;
+    }
+}
 .wrapper {
     .questions__form {
         background: #fff;
+        @media(max-width: 768px) {
+            background: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
     }
     .swiper {
         padding-bottom: 0 !important;
+    }
+    .pagination {
+        margin-bottom: 24px;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 28px;
+        span {
+            font-size: 48px;
+            line-height: 57px;
+            @media(max-width: 768px) {
+                font-size: 24px;
+                line-height: 28px;
+            }
+        }
     }
     .questions {
         min-height: 300px;
         display: flex;
         justify-content: center;
+        gap: 0;
+        border-radius: 5px;
         .question {
             padding: 0 10px;
         }
         @media(max-width:768px) {
-            min-height: 200px;
+            background-color: #fff;
+            display: block;
+            min-height: unset;
             .question {
+                margin-bottom: 24px;
+            }
+            .pagination {
+                margin-top: 24px;
+            }
+            .answers {
                 margin-bottom: 24px;
             }
         }

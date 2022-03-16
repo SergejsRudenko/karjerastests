@@ -1,6 +1,7 @@
 
 export function questionCard() {
     let answers = document.querySelectorAll('div.answers');
+    let firstPart = document.querySelector('.firstPart');
     let questionsButton = document.querySelector('.first__questions');
     let questionsForm = document.querySelector('.first__questions-form');
     let firstInfoCard = document.querySelector('.first__info');
@@ -15,13 +16,13 @@ export function questionCard() {
         gtag('event', event, data);
     }
 
-    if(window.matchMedia( "(min-width: 769px)").matches) {
-        nexSlideButton.addEventListener('click', () => {
-            if(nexSlideButton.classList.contains('swiper-button-disabled')) {
-                button.classList.remove('none');
-            }
-        })
-    }
+    // if(window.matchMedia( "(min-width: 769px)").matches) {
+    //     nexSlideButton.addEventListener('click', () => {
+    //         if(nexSlideButton.classList.contains('swiper-button-disabled')) {
+    //             button.classList.remove('none');
+    //         }
+    //     })
+    // }
 
     questionsButton.addEventListener('click', () => {
         if(window.matchMedia( "(min-width: 769px)").matches) {
@@ -35,6 +36,11 @@ export function questionCard() {
         }
         questionsForm.classList.add('block');
         firstInfoCard.classList.toggle('none');
+        if(window.matchMedia( "(max-width: 768px)").matches) {
+             firstPart.classList.add('mobileOverlay');
+             questionsForm.classList.add('flex-column-reverse');
+        }
+
         $(".first__questions").on("click", function(e){
             sendGAEvent('Sāka testu', {
               'event_category' : 'Sāka testu',

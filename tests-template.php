@@ -34,7 +34,8 @@ get_header();
 						if( have_rows('main_questions') ): while ( have_rows('main_questions') ) : the_row();?>
 						<div class="swiper-slide">
 							<div class="questions">
-								<div class="one">      
+								<div class="one">
+									<div class="pagination mobilePagination"><span><?php echo $counterNo; ?></span>/<?php echo sizeof(get_field('main_questions'))*2;?></div>      
 									<p class="question"><?php echo get_sub_field('question'); ?></p>
 									<div class="answers">
 										<input type="radio" value="true" id="answerYes<?php echo $counter; ?>" class="question__input" hidden name="question<?php echo $counter; ?>">
@@ -44,6 +45,7 @@ get_header();
 									</div>
 								</div>
 								<div class="two">
+								<div class="pagination mobilePagination"><span><?php echo $counterNo+1; ?></span>/<?php echo count(get_field('main_questions'))*2;?></div>      
 									<p class="question"><?php echo get_sub_field('question_two');?></p>
 									<div class="answers">
 										<input type="radio" value="true" id="answerYes<?php echo $counterNo; ?>" class="question__input" hidden name="question<?php echo $counterNo;?>">
@@ -83,7 +85,7 @@ get_header();
 
 	<?php
 		if( have_rows('follow_questions') ): while ( have_rows('follow_questions') ) : the_row();?>
-		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-full="<?php echo get_sub_field('faculty_description');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" hidden>Hidden</div>
+		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-full="<?php echo get_sub_field('faculty_description');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" data-color="<?php echo get_sub_field('faculty_color');?>" hidden>Hidden</div>
 	<?php 
 		endwhile; endif;
     ?>
@@ -100,21 +102,6 @@ get_header();
 					<div class="contact__info-mail">Piesakies konsultācijai aizpildot kontaktformu vai rakstot uz e-pastu <a href="mailto: karjera@lu.lv" class="">karjera@lu.lv</a></div>
 				</div>
 				<?php echo do_shortcode('[contact-form-7 id="105" title="Untitled" html_class="contact__form"]'); ?>
-				<!-- <form action="<?php echo admin_url('admin-ajax.php');?>" method="post" class="contact__form">
-					
-					<input type="hidden" name="action" value="my_action">
-					<input type="text" name="name" id="" placeholder="Vārds, Uzvārds *" required>
-					<input type="text" name="email" id="" placeholder="E-pasts *" required>
-					<input type="text" name="comment" id="" placeholder="Komentārs">
-					<div class="checkbox__wrapper">
-						<input type="checkbox" name="accept" id="checkbox" required>
-						<label for="checkbox">Piekrītu privātuma politikai</label>
-					</div>
-					<button class="featured__link contact__button" type="submit">Pieteikties</button>
-					<div class="alert alert-success contact__msg" style="display: none" role="alert">
-						Paldies, jūsu ziņa aizūtīta.
-					</div>
-				</form> -->
 			</div>
 		</div>
 	</section>

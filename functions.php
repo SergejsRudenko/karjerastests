@@ -139,8 +139,9 @@ add_action( 'widgets_init', 'karjerastest_widgets_init' );
  */
 function karjerastest_scripts() {
 	wp_enqueue_style( 'karjerastest-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_enqueue_style( 'karjerastest-style-main', get_template_directory_uri() . '/assets/css/style.min.css', array(), _S_VERSION );
 	wp_enqueue_style( 'swiper', get_template_directory_uri() . '/assets/files/swiper-bundle.min.css', array(), _S_VERSION );
+	wp_enqueue_style( 'cookies', get_template_directory_uri() . '/assets/files/style_cookies.css', array(), _S_VERSION );
+	wp_enqueue_style( 'karjerastest-style-main', get_template_directory_uri() . '/assets/css/style.min.css', array(), _S_VERSION );
 	wp_style_add_data( 'karjerastest-style', 'rtl', 'replace' );
 
 	wp_deregister_script( 'jquery' );
@@ -148,6 +149,7 @@ function karjerastest_scripts() {
     wp_enqueue_script( 'jquery');
 
 	wp_enqueue_script( 'karjerastest-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'karjerastest-cookie-consent', get_template_directory_uri() . '/assets/files/cookieconsent.js', array('jquery'), _S_VERSION, true );
 	wp_enqueue_script( 'karjerastest-main', get_template_directory_uri() . '/assets/js/app.min.js', array('jquery'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -155,6 +157,11 @@ function karjerastest_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'karjerastest_scripts' );
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page();
+	
+}
 
 /**
  * Implement the Custom Header feature.
@@ -182,6 +189,16 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+function lu_menus() {
+
+	$locations = array(
+		'footer'  => __( 'Footer Menu', 'lu' ),
+		'footer_social' => __('Footer Social', 'lu')
+	);
+
+	register_nav_menus( $locations );
+}
+add_action( 'init', 'lu_menus' );
 // add_filter('wpcf7_form_elements', function( $content ) {
 // 	$dom = new DOMDocument();
 // 	$dom->preserveWhiteSpace = false;

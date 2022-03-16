@@ -28,6 +28,25 @@ body {
 a, a:visited, a:hover, a:active {
     color: inherit;
   }
+  .swiper-button-prev,
+  .swiper-button-next {
+      display: none !important;
+  }
+  .light.cc_dialog {
+      background-color: $cTheme !important;
+  }
+  .cc_dialog {
+      .msg {
+          color: #fff !important;
+      }
+      .cc_b_cp {
+          color: #fff;
+      }
+      .cc_b_ok {
+          background: #fff !important;
+          color: #2C7CBF !important;
+      }
+  }
 // .questions {
 //     display: flex;
 //     flex-direction: column;
