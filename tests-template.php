@@ -8,11 +8,12 @@ get_header();
 ?>
 
 <main>
-	<section class="first overlay" style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/main.jpg';?>)">
+	<section class="first overlay" style="background-image: url(<?php echo get_field('images', 'option')['tests_page_background_image'];?>)">
 		<div class="container firstPart">
 			<div class="first__inner">
 				<div class="left">
 					<h1 class="first__title">Pirmā jautājumu sadaļa</h1>
+					<a href="#" class="back__button none">Atpakaļ</a>
 				</div>
 				<div class="right">
 					<div class="first__info">
@@ -93,7 +94,7 @@ get_header();
 		
 	</section>
 
-	<section class="contact overlay-purple none " style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/contact.jpg';?>)">
+	<section class="contact overlay-purple none " style="background-image: url(<?php echo get_field('images', 'option')['contacts_background_image'];?>)">
 		<div class="container">
 			<div class="contact__inner">
 				<div class="contact__info">

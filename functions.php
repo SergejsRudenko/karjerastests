@@ -145,7 +145,7 @@ function karjerastest_scripts() {
 	wp_style_add_data( 'karjerastest-style', 'rtl', 'replace' );
 
 	wp_deregister_script( 'jquery' );
-    wp_register_script( 'jquery', get_template_directory_uri() . '/assets//files/plugins/jquery.min.js', array(), '3.6.0', true  );
+    wp_register_script( 'jquery', get_template_directory_uri() . '/assets/files/plugins/jquery.min.js', array(), '3.6.0', true  );
     wp_enqueue_script( 'jquery');
 
 	wp_enqueue_script( 'karjerastest-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
@@ -199,6 +199,21 @@ function lu_menus() {
 	register_nav_menus( $locations );
 }
 add_action( 'init', 'lu_menus' );
+add_filter('wpcf7_validate_text', 'custom_text_validation', 20, 2);
+add_filter('wpcf7_validate_text*', 'custom_text_validation', 20, 2);
+
+function custom_text_validation($result, $tag) {
+    $type = $tag->type; //object instead of array
+    $name = $tag->name; //object instead of array
+	$pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
+    if($name == 'email') {
+        $value = $_POST[$name];
+        if(!preg_match($pattern, $value )){ //new regex statement
+            $result->invalidate($tag, "Invalid characters");
+        }
+    }
+    return $result;
+}
 // add_filter('wpcf7_form_elements', function( $content ) {
 // 	$dom = new DOMDocument();
 // 	$dom->preserveWhiteSpace = false;

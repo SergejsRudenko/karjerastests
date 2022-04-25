@@ -9,7 +9,7 @@ get_header();
 
 <main>
 	<section class="hero">
-			<div class="hero__left" style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/hand.jpg';?>)"></div>
+			<div class="hero__left" style="background-image: url(<?php echo get_field('images', 'option')['main_page_hero_image'];?>)"></div>
 			<div class="hero__right"></div>
 		<div class="container">
 			<div class="hero__inner">

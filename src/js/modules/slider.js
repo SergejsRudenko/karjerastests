@@ -27,12 +27,12 @@ export function slider(){
             spaceBetween: 20,
           },
           // when window width is >= 640px
-          769: {
+          821: {
             direction: 'horizontal'
           }
         }
       });
-      if(window.matchMedia( "(min-width: 769px)").matches) {
+      if(window.matchMedia( "(min-width: 821px)").matches) {
       function splitArrayIntoChunksOfLen(arr, len) {
         var chunks = [], i = 0, n = arr.length;
         while (i < n) {
@@ -49,6 +49,7 @@ export function slider(){
 
       let swiper = document.querySelector('.swiper').swiper;
       let slides = document.querySelectorAll('.swiper-slide > .questions');
+      let backButton = document.querySelector('.back__button');
       for (let i = 0; i < slides.length; i++) {
         let inputs = slides[i].querySelectorAll('.question__input');
         let inputsArr = Array.from(inputs);
@@ -62,10 +63,23 @@ export function slider(){
             }
           })
         })
-        
       }
+      backButton.addEventListener('click', () => {
+        let prevSlide = document.querySelector('.swiper-slide-prev');
+        swiper.slidePrev();
+        let inputs = prevSlide.querySelectorAll('.question__input');
+        let labels = prevSlide.querySelectorAll('label');
+        inputs.forEach(el => {
+          el.checked = false;
+        })
+        labels.forEach(el => {
+          el.classList.remove('active');
+          el.removeAttribute('hidden');
+          el.style.pointerEvents = 'all';
+        })
+      })
     }
-    if(window.matchMedia( "(max-width: 769px)").matches) { 
+    if(window.matchMedia( "(max-width: 821px)").matches) { 
       
       let counter = 1;
       let button = document.querySelector('.firstButtonWrapper .button__link');

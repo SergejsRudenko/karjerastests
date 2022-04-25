@@ -10,6 +10,7 @@ export function questionCard() {
     let pagination = document.querySelector('.swiper-pagination');
     let nexSlideButton = document.querySelector('.swiper-button-next');
     let button = document.querySelector('.button__link');
+    
 
     function sendGAEvent(event, data){
         console.log(event, data);
@@ -25,7 +26,8 @@ export function questionCard() {
     // }
 
     questionsButton.addEventListener('click', () => {
-        if(window.matchMedia( "(min-width: 769px)").matches) {
+        if(window.matchMedia( "(min-width: 821px)").matches) {
+            document.querySelector('.back__button').classList.remove('none');
          firsTitle.insertAdjacentElement('beforeend', pagination);
          $(".first__questions").on("click", function(e){
             sendGAEvent('Sāka testu', {
@@ -36,7 +38,7 @@ export function questionCard() {
         }
         questionsForm.classList.add('block');
         firstInfoCard.classList.toggle('none');
-        if(window.matchMedia( "(max-width: 768px)").matches) {
+        if(window.matchMedia( "(max-width: 820px)").matches) {
              firstPart.classList.add('mobileOverlay');
              questionsForm.classList.add('flex-column-reverse');
         }
@@ -47,7 +49,7 @@ export function questionCard() {
               'event_label' : 'Sāka testu'
             });
         });
-        if(window.matchMedia( "(min-width: 769px)").matches) {
+        if(window.matchMedia( "(min-width: 821px)").matches) {
             // title.classList.toggle('none');
         }
         
@@ -58,9 +60,12 @@ export function questionCard() {
             label[i].addEventListener('click', () => {
                 label[i].classList.add('active');
                 if(label[0].classList.contains('active')) {
-                    label[1].remove();
+                    label[1].setAttribute('hidden', '');
                 } else if(label[1].classList.contains('active')) {
-                    label[0].remove();
+                    label[0].setAttribute('hidden', '');
+                }
+                if(window.matchMedia( "(max-width: 820px)").matches) {
+                    label[i].style.pointerEvents = 'none';
                 }
             })        
         }

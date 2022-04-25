@@ -215,6 +215,7 @@ export function quiz() {
                           });
                           createResultCard();
 
+
                           });
                     }
                     wrapper[counter].classList.add('none');
@@ -268,7 +269,10 @@ export function quiz() {
         if(fallbackAnswers.length === 0) {
             console.log('fajaaa');
             document.querySelector('.first').remove();
-            contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
+            // contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
+            contacts.querySelector('.contact__info-title').remove();
+            contacts.querySelector('.contact__info-mail').innerHTML = `“Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!”
+            `;
             contacts.classList.remove('none');
             event.preventDefault();
             // throw new Error();
@@ -283,6 +287,7 @@ export function quiz() {
         document.querySelector('.second__questions').addEventListener('click', () => {
         document.querySelector('.firstPart').classList.remove('none');
         document.querySelector('.part__two').remove();
+        document.querySelector('.right').classList.add('none');
         sendGAEvent('Sāka testa otro daļu', {
             'event_category' : 'Sāka testa otro daļu',
             'event_label' : 'Sāka testa otro daļu'
@@ -293,6 +298,9 @@ export function quiz() {
 
       //Create result card depending on result
       function createResultCard() {
+          window.history.replaceState({}, '','/rezultats');
+          window.history.pushState("", document.title, window.location.pathname + window.location.search);
+
           //sort by percent value
           followQuestionsTest.sort((a, b) => b.percentScore - a.percentScore);
           let hero = document.querySelector('.first');
@@ -303,6 +311,10 @@ export function quiz() {
           contacts.classList.remove('none');
           main.classList.remove('none');
           let resultsContainer = document.createElement('div');
+          let resultsThis = ['šīs','šī'];
+          let resultsCount = ['fakultāte', 'fakultātes'];
+          let resultsThisFinal = resultsContainer.length > 0 ? resultsThis[0] : resultsThis[1];
+          let resultsCountFinal = resultsContainer.length > 0 ? resultsCount[0] : resultsCount[1];
           resultsContainer.classList.add('container');
           resultsContainer.innerHTML = `
           <h6 class="results__heading">Testa rezultāts:</h6>
@@ -310,9 +322,9 @@ export function quiz() {
 				${followQuestionsTest[0].name}
 			</h1>
 			<div class="results__subtitle">
-			${followQuestionsTest[0].description}
+                “Apsveicam! Spriežot pēc Tavām atzīmētajām interesēm, ir izkristalizējušās ${resultsThisFinal} ${resultsCountFinal}.  Procentu daudzums atbilst tam, cik ļoti piemērota Tev varētu būt attiecīgā fakultāte – jo vairāk %, jo lielāka iespējamība, ka attiecīgajā fakultātē atradīsi kādu programmu, kas Tev būs īpaši piemērota un saistoša. Ar visām programmām aicinām iepazīties šajā <a href="https://www.lu.lv/gribustudet/studiju-programmas/bakalaura-limena-studijas/" target="_blank">saitē</a>. Ņemot vērā to, ka šis ir tikai ieskats Tavu interešu apzināšanā, tad pārliecināties par attiecīgajām fakultātēm un precīzāku virzienu vari, piesakoties uz individuālu konsultāciju ar karjeras konsultantu. Piesakies te: <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>
 			</div>
-          `
+          `;
           main.insertAdjacentElement('beforeend', resultsContainer);
         
           let container = document.createElement('div');
@@ -326,6 +338,7 @@ export function quiz() {
               let percentScore = followQuestionsTest[i].percentScore;
               let title = followQuestionsTest[i].name;
               let description = followQuestionsTest[i].fullDescription;
+              let color = followQuestionsTest[i].color;
             //   console.log(followQuestionsTest);
               card.classList.add('cards__item');
               card.innerHTML = `
@@ -346,19 +359,14 @@ export function quiz() {
            </div></div>
               <h3 class="cards__item-title">${title}</h3>
               <div class="cards__item-text">${description}</div>
-              <a href="${followQuestionsTest[i].page}" class="cards__item-button">uzzināt vairāk</a>
+              <a href="${followQuestionsTest[i].page}" class="cards__item-button" target="_blank" >uzzināt vairāk</a>
               `
 
               cards.insertAdjacentElement('beforeend', card);
 
               let circle = document.querySelectorAll('.progress-ring__circle');
-              if(percentScore < 30) {
-                  circle[i].style.scroke = '#DD2A27';
-              } else if(percentScore >=30 && percentScore < 75) {
-                  circle[i].style.stroke = '#93911B';
-              } else {
-                  circle[i].style.stroke = '#7FD1A5';
-              }
+              circle[i].classList.add(`${color}`);
+
               let radius = circle[i].r.baseVal.value;
               let circumference = radius * 2 * Math.PI;
 
