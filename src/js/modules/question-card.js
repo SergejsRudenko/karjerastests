@@ -17,13 +17,13 @@ export function questionCard() {
         gtag('event', event, data);
     }
 
-    // if(window.matchMedia( "(min-width: 769px)").matches) {
-    //     nexSlideButton.addEventListener('click', () => {
-    //         if(nexSlideButton.classList.contains('swiper-button-disabled')) {
-    //             button.classList.remove('none');
-    //         }
-    //     })
-    // }
+    if(window.matchMedia( "(min-width: 769px)").matches) {
+        nexSlideButton.addEventListener('click', () => {
+            if(nexSlideButton.classList.contains('swiper-button-disabled')) {
+                button.classList.remove('none');
+            }
+        })
+    }
 
     questionsButton.addEventListener('click', () => {
         if(window.matchMedia( "(min-width: 821px)").matches) {

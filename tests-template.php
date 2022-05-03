@@ -12,8 +12,11 @@ get_header();
 		<div class="container firstPart">
 			<div class="first__inner">
 				<div class="left">
-					<h1 class="first__title">Pirmā jautājumu sadaļa</h1>
-					<a href="#" class="back__button none">Atpakaļ</a>
+					<h1 class="first__title">Pirmā jautājumu sadaļa
+					<!-- <a href="#" class="back__button none">Atpakaļ<i class="arrow"></i></a> -->
+
+					</h1>
+					<a href="#" class="back__button none">Atpakaļ<i class="arrow"></i></a>
 				</div>
 				<div class="right">
 					<div class="first__info">
@@ -43,6 +46,7 @@ get_header();
 										<label for="answerYes<?php echo $counter; ?>">JĀ</label>
 										<input type="radio" value="false" id="answerNo<?php echo $counter; ?>" class="question__input" hidden name="question<?php echo $counter; ?>">
 										<label for="answerNo<?php echo $counter; ?>">NĒ</label>
+										<a class="refresh__button"></a>
 									</div>
 								</div>
 								<div class="two">
@@ -53,6 +57,7 @@ get_header();
 										<label for="answerYes<?php echo $counterNo; ?>">JĀ</label>
 										<input type="radio" value="false" id="answerNo<?php echo $counterNo; ?>" class="question__input" hidden name="question<?php echo $counterNo;?>">
 										<label for="answerNo<?php echo $counterNo; ?>">NĒ</label>
+										<a class="refresh__button"></a>
 									</div>
 								</div>
 								
@@ -86,7 +91,7 @@ get_header();
 
 	<?php
 		if( have_rows('follow_questions') ): while ( have_rows('follow_questions') ) : the_row();?>
-		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-full="<?php echo get_sub_field('faculty_description');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" data-color="<?php echo get_sub_field('faculty_color');?>" hidden>Hidden</div>
+		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-full="<?php echo get_sub_field('faculty_description');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" data-color="<?php echo get_sub_field('faculty_color');?>" data-image="<?php echo get_sub_field('faculty_image');?>" hidden>Hidden</div>
 	<?php 
 		endwhile; endif;
     ?>

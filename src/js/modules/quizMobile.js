@@ -21,6 +21,7 @@ export function quizMobile() {
         let page = DOMFollowQuestions[i].dataset.page;
         let fullDescription = DOMFollowQuestions[i].dataset.full;
         let color = DOMFollowQuestions[i].dataset.color;
+        let image = DOMFollowQuestions[i].dataset.image;
         followQuestionsTest[i] = {
             followQuestions: questions,
             ID: idCounter,
@@ -30,6 +31,7 @@ export function quizMobile() {
             page: page,
             fullDescription: fullDescription,
             color: color,
+            image: image,
     };
     idCounter++;
     }
@@ -82,6 +84,7 @@ export function quizMobile() {
                         <label for="secondAnswerYes${ID}${i}">JĀ</label>
                         <input type="radio" value="0" id="secondAnswerNo${ID}${i}" input_two name="question${ID}${i}" hidden>
                         <label for="secondAnswerNo${ID}${i}">NĒ</label>
+                        <a class="refresh__button-second"></a>
                     </div>`;
                     newDiv.classList.add('questions','swiper-slide','swiper-slide-two');
                     formContainer.insertAdjacentElement('beforeend', newDiv);
@@ -166,6 +169,25 @@ export function quizMobile() {
                     })
                 }
             }
+          })
+          //Secon part refresh button for mobile
+          let refresh = document.querySelectorAll('.refresh__button-second');
+          refresh.forEach (e => {
+              e.addEventListener('click', () => {
+                  let lables = e.closest('.answers').querySelectorAll('label');
+                  let inputs = e.closest('.answers').querySelectorAll('input');
+                  if(lables[0].classList.contains('active') || lables[1].classList.contains('active')){
+                    slideCounter--;
+                  }
+                  inputs.forEach(el => {
+                      el.checked = false;
+                    })
+                  lables.forEach(elem => {
+                      elem.classList.remove('active');
+                      elem.removeAttribute('hidden');
+                      elem.style.pointerEvents = 'all';
+                  })
+              })
           })
 
             Slider.slider();
@@ -264,7 +286,7 @@ export function quizMobile() {
             document.querySelector('.first').remove();
             // contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
             contacts.querySelector('.contact__info-title').remove();
-            contacts.querySelector('.contact__info-mail').innerHTML = `Kad pirmajā daļā ir visas atbildes Nē, tad likt tekstu nevis “Nenoteikts”, bet “Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!”
+            contacts.querySelector('.contact__info-mail').innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!
             `;
             contacts.classList.remove('none');
             window.scrollTo({top: 0, behavior: 'smooth'});
@@ -301,9 +323,12 @@ export function quizMobile() {
           contacts.classList.remove('none');
           let resultsThis = ['šīs','šī'];
           let resultsCount = ['fakultāte', 'fakultātes'];
-          let resultsThisFinal = resultsContainer.length > 0 ? resultsThis[0] : resultsThis[1];
-          let resultsCountFinal = resultsContainer.length > 0 ? resultsCount[0] : resultsCount[1];
+          let resultsThisFinal = followQuestionsTest.length > 0 ? resultsThis[0] : resultsThis[1];
+          let resultsCountFinal = followQuestionsTest.length > 0 ? resultsCount[0] : resultsCount[1];
           let resultsContainer = document.createElement('div');
+          if(followQuestionsTest[0].image != '') {
+            main.style.backgroundImage = `url('${followQuestionsTest[0].image}')`;
+          }
           resultsContainer.classList.add('container');
           resultsContainer.innerHTML = `
           <h6 class="results__heading">Testa rezultāts:</h6>
@@ -389,9 +414,5 @@ export function quizMobile() {
           `;
           document.querySelector('.first').insertAdjacentElement('afterbegin', container);
       }
-
-    // });
-        
-
-    // writeAnswers();
+      
 }

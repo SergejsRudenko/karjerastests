@@ -140,7 +140,7 @@ input:-webkit-autofill:active {
         .right {
             width: 50%;
             .first__info {
-                padding: 105px 113px;
+                padding: 105px 100px;
                 background: #E3EFFC;
                 border-radius: 5px;
                 &-title {
@@ -191,6 +191,7 @@ input:-webkit-autofill:active {
         height: auto;
         background-size: auto;
         object-fit: fill;
+        background-position: 10% 0;
         .secondButton {
             margin: 0 auto;
         }

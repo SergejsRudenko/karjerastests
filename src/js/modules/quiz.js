@@ -21,6 +21,7 @@ export function quiz() {
         let page = DOMFollowQuestions[i].dataset.page;
         let fullDescription = DOMFollowQuestions[i].dataset.full;
         let color = DOMFollowQuestions[i].dataset.color;
+        let image = DOMFollowQuestions[i].dataset.image;
         followQuestionsTest[i] = {
             followQuestions: questions,
             ID: idCounter,
@@ -30,6 +31,7 @@ export function quiz() {
             page: page,
             fullDescription: fullDescription,
             color: color,
+            image: image,
     };
     idCounter++;
     }
@@ -82,9 +84,9 @@ export function quiz() {
                     <div class="pagination"><span>${paginationCounter}</span>/${element.followQuestions.length}</div>
                     <p class="question">${element.followQuestions[i]}</p>
                     <div class="answers">
-                        <input type="radio" value="1" id="secondAnswerYes${ID}${i}" name="question${ID}${i}" hidden>
+                        <input type="radio" class="question__input" value="1" id="secondAnswerYes${ID}${i}" name="question${ID}${i}" hidden>
                         <label class="testLabel" for="secondAnswerYes${ID}${i}">JĀ</label>
-                        <input type="radio" value="0" id="secondAnswerNo${ID}${i}" name="question${ID}${i}" hidden>
+                        <input type="radio" class="question__input" value="0" id="secondAnswerNo${ID}${i}" name="question${ID}${i}" hidden>
                         <label class="testLabel" for="secondAnswerNo${ID}${i}">NĒ</label>
                     </div>`;
                     newDiv.classList.add('questions','swiper-slide', 'swiper-no-swiping','swiper-slide-two');
@@ -169,11 +171,52 @@ export function quiz() {
                     
                 }
             })
-
-          
             Slider.slider();
             iterateSecondQuestions();
-          
+
+            let swiperForBack = document.querySelectorAll('.swiper__second');
+            console.log(swiperForBack);
+            // let swiperCounter = 0;
+            // swiperForBack.forEach(el => {
+            //     let swiper = document.querySelector(`.swiper${swiperCounter}`).swiper;
+            //     let prevSlide = document.querySelectorAll('.swiper-slide-prev')[swiperCounter];
+            //     let backButton = document.querySelector('.back__button');
+            //     backButton.addEventListener('click', () => {
+            //         swiper.slidePrev();
+            //         console.log(prevSlide);
+            //         let inputs = prevSlide.querySelectorAll('.question__input');
+            //         let labels = prevSlide.querySelectorAll('label');
+            //         inputs.forEach(el => {
+            //           el.checked = false;
+            //         })
+            //         labels.forEach(el => {
+            //           el.classList.remove('active');
+            //           el.removeAttribute('hidden');
+            //           el.style.pointerEvents = 'all';
+            //         })
+            //       })
+            //       swiperCounter++;
+            // });
+
+            for (let i = 0; i < swiperForBack.length; i++) {
+                let swiper = document.querySelector(`.swiper${i}`).swiper;
+                let backButton = document.querySelector('.back__button');
+                backButton.addEventListener('click', () => {
+                    let prevSlide = swiperForBack[i].querySelector(`.swiper-slide-prev`);
+                    swiper.slidePrev();
+                    let inputs = prevSlide.querySelectorAll('.question__input');
+                    let labels = prevSlide.querySelectorAll('label');
+                    // inputs.checked = false;
+                    inputs.forEach(el => {
+                        el.checked = false;
+                      })
+                    labels.forEach(el => {
+                      el.classList.remove('active');
+                      el.removeAttribute('hidden');
+                      el.style.pointerEvents = 'all';
+                    });
+                  })
+            }
     }
   
     function iterateSecondQuestions() {
@@ -271,7 +314,7 @@ export function quiz() {
             document.querySelector('.first').remove();
             // contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
             contacts.querySelector('.contact__info-title').remove();
-            contacts.querySelector('.contact__info-mail').innerHTML = `“Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!”
+            contacts.querySelector('.contact__info-mail').innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!
             `;
             contacts.classList.remove('none');
             event.preventDefault();
@@ -292,7 +335,7 @@ export function quiz() {
             'event_category' : 'Sāka testa otro daļu',
             'event_label' : 'Sāka testa otro daļu'
           });
-        })
+        });
         event.preventDefault();
       }, false);
 
@@ -313,9 +356,12 @@ export function quiz() {
           let resultsContainer = document.createElement('div');
           let resultsThis = ['šīs','šī'];
           let resultsCount = ['fakultāte', 'fakultātes'];
-          let resultsThisFinal = resultsContainer.length > 0 ? resultsThis[0] : resultsThis[1];
-          let resultsCountFinal = resultsContainer.length > 0 ? resultsCount[0] : resultsCount[1];
+          let resultsThisFinal = followQuestionsTest.length > 0 ? resultsThis[0] : resultsThis[1];
+          let resultsCountFinal = followQuestionsTest.length > 0 ? resultsCount[0] : resultsCount[1];
           resultsContainer.classList.add('container');
+          if(followQuestionsTest[0].image != '') {
+            main.style.backgroundImage = `url('${followQuestionsTest[0].image}')`;
+          }
           resultsContainer.innerHTML = `
           <h6 class="results__heading">Testa rezultāts:</h6>
 			<h1 class="results__title">

@@ -95,8 +95,26 @@ export function slider(){
             counter++;
           })
         })
-        
       }
+      //Refresh button part for question cards mobile
+      let refresh = document.querySelectorAll('.refresh__button');
+      refresh.forEach (e => {
+          e.addEventListener('click', () => {
+              let lables = e.closest('.answers').querySelectorAll('label');
+              let inputs = e.closest('.answers').querySelectorAll('input');
+              if(lables[0].classList.contains('active') || lables[1].classList.contains('active')){
+                counter--;
+              }
+              inputs.forEach(el => {
+                  el.checked = false;
+                })
+              lables.forEach(elem => {
+                  elem.classList.remove('active');
+                  elem.removeAttribute('hidden');
+                  elem.style.pointerEvents = 'all';
+              })
+          })
+      })
      }
 
 }
