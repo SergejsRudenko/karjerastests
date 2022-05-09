@@ -368,7 +368,7 @@ export function quiz() {
 				${followQuestionsTest[0].name}
 			</h1>
 			<div class="results__subtitle">
-                “Apsveicam! Spriežot pēc Tavām atzīmētajām interesēm, ir izkristalizējušās ${resultsThisFinal} ${resultsCountFinal}.  Procentu daudzums atbilst tam, cik ļoti piemērota Tev varētu būt attiecīgā fakultāte – jo vairāk %, jo lielāka iespējamība, ka attiecīgajā fakultātē atradīsi kādu programmu, kas Tev būs īpaši piemērota un saistoša. Ar visām programmām aicinām iepazīties šajā <a href="https://www.lu.lv/gribustudet/studiju-programmas/bakalaura-limena-studijas/" target="_blank">saitē</a>. Ņemot vērā to, ka šis ir tikai ieskats Tavu interešu apzināšanā, tad pārliecināties par attiecīgajām fakultātēm un precīzāku virzienu vari, piesakoties uz individuālu konsultāciju ar karjeras konsultantu. Piesakies te: <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>
+                Apsveicam! Spriežot pēc Tavām atzīmētajām interesēm, iesakām tev izvēlēties ${resultsThisFinal} ${resultsCountFinal}. Procentu daudzums atbilst tam, cik ļoti piemērota Tev varētu būt attiecīgā fakultāte – jo vairāk procentu, jo lielāka iespējamība, ka fakultātē atradīsi kādu programmu, kas Tev būs īpaši piemērota un saistoša. Ar visām programmām aicinām iepazīties <a href="https://www.lu.lv/gribustudet/studiju-programmas/bakalaura-limena-studijas/" target="_blank">Latvijas Universitātes tīmekļvietnē.</a> Ņemot vērā to, ka šis ir tikai ieskats Tavu interešu apzināšanā, tad pārliecināties par attiecīgajām fakultātēm un precīzāku virzienu vari, piesakoties uz individuālu konsultāciju ar karjeras konsultantu. Piesakies e-pastā: <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>
 			</div>
           `;
           main.insertAdjacentElement('beforeend', resultsContainer);
