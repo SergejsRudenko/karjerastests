@@ -35,7 +35,6 @@ export function quizMobile() {
     };
     idCounter++;
     }
-    // console.log(followQuestionsTest);
 
 
     let fallbackAnswers = [];
@@ -61,7 +60,6 @@ export function quizMobile() {
         followQuestionsTest.forEach( element => {
         
 
-            // console.log(Object.values(element));
             let container = document.createElement("div");
             container.classList.add('wrapper');
                 container.innerHTML = `
@@ -72,7 +70,6 @@ export function quizMobile() {
                 currentDiv.insertAdjacentElement('beforeend', container);
                 let formContainer = document.querySelector(`.questions__${formCounter}`);
                 let paginationCounter = 1;
-                // while(Object.keys(element)[counter] !='ID'){
                     for (let i = 0; i < element.followQuestions.length; i++) {
                         let ID = element.ID;
                          let newDiv = document.createElement("div");
@@ -108,7 +105,6 @@ export function quizMobile() {
                     for (const entry of data) {
                         output += parseInt(entry[1]);
                     };
-                    // log.innerText = output;
                     element.questionsScore = output;
                     element.percentScore = Math.floor(element.questionsScore*100 / element.followQuestions.length , 2);
                     output = 0;
@@ -123,27 +119,7 @@ export function quizMobile() {
                 formCounter++;
 
         })
-        // let swiper = document.querySelectorAll('.swiper');
-        // for( let i=0; i< swiper.length; i++ ) {
-        //     const slider = new Swiper('.swiper' + i, {
-        //         // If we need pagination
-        //         pagination: {
-        //             el: '.swiper-pagination',
-        //             type: 'fraction',
-        //         },
-        //         // Navigation arrows
-        //         navigation: {
-        //             nextEl: '.swiper-button-next',
-        //             prevEl: '.swiper-button-prev',
-        //         },
-        //         // And if we need scrollbar
-        //         scrollbar: {
-        //             el: '.swiper-scrollbar',
-        //         },
-        //         allowTouchMove: false,
-        //             });
-        //             slider.allowTouchMove(false);
-        //   }
+
           let wrapper = document.querySelectorAll('.partTwoForm');
           let slideCounter = 1;
           let buttonCounter = 0;
@@ -155,7 +131,7 @@ export function quizMobile() {
             for (let i = 0; i < slides.length; i++) {
                 let inputs = slides[i].querySelectorAll('input');
                 let inputsArr = Array.from(inputs);
-                // console.log(inputsArr);
+
                 for (let j = 0; j < inputsArr.length; j++) {
                     inputsArr[j].addEventListener('click', () => {
                         if(slideCounter === slides.length) {
@@ -165,7 +141,6 @@ export function quizMobile() {
                             button.click();
                         }
                         slideCounter++;
-                        // inputsArr[j].classList.add('wow');
                     })
                 }
             }
@@ -223,10 +198,6 @@ export function quizMobile() {
                         const submitResults = document.querySelector(".resultsButton");
                         //Submit results 
                          submitResults.addEventListener('click', () => {
-                        //   for(let item of followQuestionsTest ) {
-                        //       console.log(item.percentScore);
-                        //       console.log(followQuestionsTest);
-                        //   }
                           createResultCard();
                           
                           });
@@ -235,8 +206,6 @@ export function quizMobile() {
                     if(wrapper.length != counter) {
                         wrapper[counter+1].classList.remove('none');
                     }
-                    // console.log(wrapper.length);
-                    // console.log(counter);
                     window.scrollTo({top: 0, behavior: 'smooth'});
                     counter++;
                     questionCounter++;
@@ -249,7 +218,6 @@ export function quizMobile() {
         mainQuestionsTest.forEach( el => {
             if (el.questionOneAnswer === 'true' && el.questionTwoAnswer === 'true'){
                 fallbackAnswers = fallbackAnswers.concat(el.fallBackQuestions);
-                // console.log(fallbackAnswers);
             }
         });
     }
@@ -263,7 +231,6 @@ export function quizMobile() {
         for (const entry of data) {
             output = output + entry[0] + "=" + entry[1] + "\r";
           };
-        //   log.innerText = output;
 
           for (let i=0; i < DOMMainQuestions.length; i++) {
             let array = DOMMainQuestions[i].dataset.follow.split(',');
@@ -273,25 +240,20 @@ export function quizMobile() {
             }
             for (const item of mainQuestionsTest) {
                 item.questionOneAnswer = data.get(`question${counter}`);
-                // console.log(item.questionOneAnswer);
                 item.questionTwoAnswer = data.get(`question${counter+1}`);
-                // console.log(item.questionTwoAnswer);
                 counter +=2;
 
             }
         
         createFallBackAnswers();
         if(fallbackAnswers.length === 0) {
-            // console.log('fajaaa');
             document.querySelector('.first').remove();
-            // contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
             contacts.querySelector('.contact__info-title').remove();
             contacts.querySelector('.contact__info-mail').innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!
             `;
             contacts.classList.remove('none');
             window.scrollTo({top: 0, behavior: 'smooth'});
             event.preventDefault();
-            // throw new Error();
         }
         document.querySelector('.firstPart').classList.add('none');
         createPartTwo();
@@ -299,7 +261,6 @@ export function quizMobile() {
         QuestionCard.questionCard();
         questionsForm.classList.remove('block');
         questionsForm.classList.remove('flex-column-reverse');
-        // console.log(fallbackAnswers);
         SecondSlides.secondSlides();
         createPrePartTwo();
         document.querySelector('.second__questions').addEventListener('click', () => {
@@ -354,7 +315,6 @@ export function quizMobile() {
               let description = followQuestionsTest[i].fullDescription;
               let color = followQuestionsTest[i].color;
 
-            //   console.log(followQuestionsTest);
               card.classList.add('cards__item');
               card.innerHTML = `
               <div class="cards__item-result">${percentScore}%

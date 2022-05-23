@@ -35,7 +35,6 @@ export function quiz() {
     };
     idCounter++;
     }
-    // console.log(followQuestionsTest);
 
 
     let fallbackAnswers = [];
@@ -57,7 +56,6 @@ export function quiz() {
         //Creates forms and questions in them
         followQuestionsTest.forEach( element => {
 
-            // console.log(Object.values(element));
             let container = document.createElement("div");
             container.classList.add('wrapper');
                 container.innerHTML = `
@@ -149,8 +147,6 @@ export function quiz() {
                 },
                     });
           }
-            // let inputs = slides[0].querySelectorAll('.question__input');
-            // let inputsArr = Array.from(inputs);
             swiper.forEach(el => {
                 let slides = el.querySelectorAll('.swiper-slide-two');
                 let nexSlideButton = el.querySelector('.swiper-button-next');
@@ -175,28 +171,6 @@ export function quiz() {
             iterateSecondQuestions();
 
             let swiperForBack = document.querySelectorAll('.swiper__second');
-            console.log(swiperForBack);
-            // let swiperCounter = 0;
-            // swiperForBack.forEach(el => {
-            //     let swiper = document.querySelector(`.swiper${swiperCounter}`).swiper;
-            //     let prevSlide = document.querySelectorAll('.swiper-slide-prev')[swiperCounter];
-            //     let backButton = document.querySelector('.back__button');
-            //     backButton.addEventListener('click', () => {
-            //         swiper.slidePrev();
-            //         console.log(prevSlide);
-            //         let inputs = prevSlide.querySelectorAll('.question__input');
-            //         let labels = prevSlide.querySelectorAll('label');
-            //         inputs.forEach(el => {
-            //           el.checked = false;
-            //         })
-            //         labels.forEach(el => {
-            //           el.classList.remove('active');
-            //           el.removeAttribute('hidden');
-            //           el.style.pointerEvents = 'all';
-            //         })
-            //       })
-            //       swiperCounter++;
-            // });
 
             for (let i = 0; i < swiperForBack.length; i++) {
                 let swiper = document.querySelector(`.swiper${i}`).swiper;
@@ -248,10 +222,6 @@ export function quiz() {
                         const submitResults = document.querySelector(".resultsButton");
                         //Submit results 
                          submitResults.addEventListener('click', () => {
-                        //   for(let item of followQuestionsTest ) {
-                        //       console.log(item.percentScore);
-                        //       console.log(followQuestionsTest);
-                        //   }
                           sendGAEvent('Apskatījas rezultātus', {
                             'event_category' : 'Apskatījas rezultātus',
                             'event_label' : 'Apskatījas rezultātus'
@@ -263,8 +233,6 @@ export function quiz() {
                     }
                     wrapper[counter].classList.add('none');
                     wrapper[counter+1].classList.remove('none');
-                    // console.log(wrapper.length);
-                    // console.log(counter);
                     counter++;
                     questionCounter++;
                 event.preventDefault();
@@ -277,7 +245,6 @@ export function quiz() {
         mainQuestionsTest.forEach( el => {
             if (el.questionOneAnswer === 'true' && el.questionTwoAnswer === 'true'){
                 fallbackAnswers = fallbackAnswers.concat(el.fallBackQuestions);
-                // console.log(fallbackAnswers);
             }
         });
     }
@@ -301,30 +268,24 @@ export function quiz() {
             }
             for (const item of mainQuestionsTest) {
                 item.questionOneAnswer = data.get(`question${counter}`);
-                // console.log(item.questionOneAnswer);
                 item.questionTwoAnswer = data.get(`question${counter+1}`);
-                // console.log(item.questionTwoAnswer);
                 counter +=2;
 
             }
         
         createFallBackAnswers();
         if(fallbackAnswers.length === 0) {
-            console.log('fajaaa');
             document.querySelector('.first').remove();
-            // contacts.querySelector('.contact__info-title').innerText = 'Nenoteikts';
             contacts.querySelector('.contact__info-title').remove();
             contacts.querySelector('.contact__info-mail').innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!
             `;
             contacts.classList.remove('none');
             event.preventDefault();
-            // throw new Error();
         }
         document.querySelector('.firstPart').classList.add('none');
         createPartTwo();
         QuestionCard.questionCard();
         questionsForm.classList.remove('block');
-        // console.log(fallbackAnswers);
         SecondSlides.secondSlides();
         createPrePartTwo();
         document.querySelector('.second__questions').addEventListener('click', () => {
@@ -450,10 +411,7 @@ export function quiz() {
             
       }
       function sendGAEvent(event, data){
-        console.log(event, data);
         gtag('event', event, data);
     }
 
-    // });
-    // writeAnswers();
 }
