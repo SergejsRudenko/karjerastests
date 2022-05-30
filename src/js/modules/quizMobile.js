@@ -22,6 +22,7 @@ export function quizMobile() {
         let fullDescription = DOMFollowQuestions[i].dataset.full;
         let color = DOMFollowQuestions[i].dataset.color;
         let image = DOMFollowQuestions[i].dataset.image;
+        let progName = DOMFollowQuestions[i].dataset.progname;
         followQuestionsTest[i] = {
             followQuestions: questions,
             ID: idCounter,
@@ -32,6 +33,7 @@ export function quizMobile() {
             fullDescription: fullDescription,
             color: color,
             image: image,
+            progName: progName,
     };
     idCounter++;
     }
@@ -57,7 +59,7 @@ export function quizMobile() {
 
 
         //Creates forms and questions in them
-        followQuestionsTest.forEach( element => {
+        followQuestionsTest.forEach( (element,index,arr) => {
         
 
             let container = document.createElement("div");
@@ -107,6 +109,9 @@ export function quizMobile() {
                     };
                     element.questionsScore = output;
                     element.percentScore = Math.floor(element.questionsScore*100 / element.followQuestions.length , 2);
+                    // if (element.percentScore < 50) {
+                    //     arr.splice(index, 1);
+                    //   }
                     output = 0;
                     
                     event.preventDefault();
@@ -176,11 +181,12 @@ export function quizMobile() {
         let firstTitle = document.querySelector('.first__title');
         let counter = 0;
         let questionCounter = 2;
-        firstTitle.innerText = `Otrā jautājumu sadaļa 1/${followQuestionsTest.length}`;
+        let total = followQuestionsTest.length;
+        firstTitle.innerText = `Otrā jautājumu sadaļa 1/${total}`;
        
         secondForms.forEach(el => {
             el.addEventListener('submit', (event) => {
-                firstTitle.innerText = `Otrā jautājumu sadaļa ${questionCounter}/${followQuestionsTest.length}`;
+                firstTitle.innerText = `Otrā jautājumu sadaļa ${questionCounter}/${total}`;
 
                     if(wrapper.length-1 === counter){
                         let mobileOverlay = document.querySelector('.mobileOverlay');
@@ -198,7 +204,13 @@ export function quizMobile() {
                         const submitResults = document.querySelector(".resultsButton");
                         //Submit results 
                          submitResults.addEventListener('click', () => {
-                          createResultCard();
+                             
+                            if(followQuestionsTest.length == 1 && followQuestionsTest[0].percentScore < 50) {
+                                followQuestionsTest.pop();
+                              }
+                              setTimeout(() => {
+                               createResultCard();
+                              }, 200);
                           
                           });
                     }
@@ -249,8 +261,10 @@ export function quizMobile() {
         if(fallbackAnswers.length === 0) {
             document.querySelector('.first').remove();
             contacts.querySelector('.contact__info-title').remove();
-            contacts.querySelector('.contact__info-mail').innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu. Tāpēc aicinām jau šodien pieteikties konsultācijai pie karjeras konsultanta, rakstot e-pastu <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>! Tev viss izdosies!
-            `;
+            contacts.querySelector('.contact__info-mail').innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu, tāpēc aicinām jau šodien pieteikties konsultācijai, rakstot uz e-pastu: <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>.<br>
+            Reģistrācijas daļā (pa labi), lūdzu, norādi savu vārdu, uzvārdu un savu e-pastu. Komentāru sadaļā, lūdzu, norādi, ko vēlies konsultācijā noskaidrot, piemēram, “Vēlos pārrunāt testa rezultātus”, “Gribu saprast, kurā mācību programmā mācīties”, “Vēlos precizēt turpmākos soļus savas karjeras izvēlē” utml.<br>
+            Ar Tevi sazināsies Latvijas Universitātes Karjeras centra konsultants un vienosies par konsultācijas laiku. Konsultācijas vietu noteiksi Tu – tā var notikt klātienē (Rīgā, Raiņa bulvārī 19, 122. telpā) vai attālināti Zoom platformā. Konsultācija skolēniem, Latvijas Universitātes studentiem, absolventiem un darbiniekiem ir bez maksas.<br>
+            Tev viss izdosies!`;
             contacts.classList.remove('none');
             window.scrollTo({top: 0, behavior: 'smooth'});
             event.preventDefault();
@@ -274,6 +288,13 @@ export function quizMobile() {
           window.history.replaceState({}, '','/rezultats');
           window.history.pushState("", document.title, window.location.pathname + window.location.search);
           //sort by percent value
+         if (followQuestionsTest.length != 0) {
+            followQuestionsTest.forEach((el,index,arr) => {
+                if (el.percentScore < 50) {
+                  arr.splice(index, 1);
+                }
+              })
+
           followQuestionsTest.sort((a, b) => b.percentScore - a.percentScore);
           let hero = document.querySelector('.first');
           hero.classList.add('none');
@@ -294,7 +315,7 @@ export function quizMobile() {
           resultsContainer.innerHTML = `
           <h6 class="results__heading">Testa rezultāts:</h6>
 			<h1 class="results__title">
-				${followQuestionsTest[0].name}
+				${followQuestionsTest[0].progName}
 			</h1>
 			<div class="results__subtitle">
                ${followQuestionsTest[0].description}
@@ -309,6 +330,7 @@ export function quizMobile() {
           container.insertAdjacentElement('afterbegin', cards);
           main.insertAdjacentElement('afterend', container);
           for (let i = 0; i < 3; i++) {
+            if (followQuestionsTest[i].percentScore >= 50) {
               let card = document.createElement('div');
               let percentScore = followQuestionsTest[i].percentScore;
               let title = followQuestionsTest[i].name;
@@ -349,6 +371,20 @@ export function quizMobile() {
 
               const offset = circumference - percentScore / 100 * circumference;
               circle[i].style.strokeDashoffset = offset;
+            }
+            }
+            } else {
+            document.querySelector(".first").remove();
+            contacts.querySelector(".contact__info-title").remove();
+            let resultsSection = document.querySelector(".results");
+            resultsSection.classList.add("none");
+            document.querySelector(
+              ".contact__info-mail"
+            ).innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu, tāpēc aicinām jau šodien pieteikties konsultācijai, rakstot uz e-pastu: <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>.<br>
+                  Reģistrācijas daļā (pa labi), lūdzu, norādi savu vārdu, uzvārdu un savu e-pastu. Komentāru sadaļā, lūdzu, norādi, ko vēlies konsultācijā noskaidrot, piemēram, “Vēlos pārrunāt testa rezultātus”, “Gribu saprast, kurā mācību programmā mācīties”, “Vēlos precizēt turpmākos soļus savas karjeras izvēlē” utml.<br>
+                  Ar Tevi sazināsies Latvijas Universitātes Karjeras centra konsultants un vienosies par konsultācijas laiku. Konsultācijas vietu noteiksi Tu – tā var notikt klātienē (Rīgā, Raiņa bulvārī 19, 122. telpā) vai attālināti Zoom platformā. Konsultācija skolēniem, Latvijas Universitātes studentiem, absolventiem un darbiniekiem ir bez maksas.<br>
+                  Tev viss izdosies!`;
+            contacts.classList.remove("none");
           }
       }
       function createPrePartTwo() {

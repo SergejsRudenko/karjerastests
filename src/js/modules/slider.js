@@ -56,7 +56,9 @@ export function slider(){
         inputsArr.forEach(el => {
           el.addEventListener('click', () => {
             if((inputsArr[0].checked || inputsArr[1].checked) & (inputsArr[2].checked || inputsArr[3].checked)) {
-              swiper.slideNext();
+              setTimeout(() => {
+                swiper.slideNext();
+              }, 100);
               if(nexSlideButton.classList.contains('swiper-button-disabled') & slides.length-1 === i) {
                 button.click();
             }
