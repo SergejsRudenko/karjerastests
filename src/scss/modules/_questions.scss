@@ -4,14 +4,14 @@
         margin: 0 auto;
         position: relative;
         align-items: center;
-        &::after {
-            content: '';
-            position: absolute;
-            width: 100vw;
-            height: 100%;
-            background-color: #ebf5ff;
-            z-index: -1;
-        }
+        // &::after {
+        //     content: '';
+        //     position: absolute;
+        //     width: 100vw;
+        //     height: 100%;
+        //     background-color: #ebf5ff;
+        //     z-index: -1;
+        // }
     }
     .questions {
         border-radius: 5px;

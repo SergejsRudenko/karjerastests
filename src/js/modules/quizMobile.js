@@ -286,27 +286,28 @@ export function quizMobile() {
         })
         event.preventDefault();
       }, false);
-      //Create result card depending on result
-    followQuestionsTest.sort((a, b) => b.percentScore - a.percentScore);
-    
-    if(followQuestionsTest.length == 1 && followQuestionsTest[0].percentScore < 50) {
-        followQuestionsTest.pop();
-      }
-      console.log('and here');
-      console.log(followQuestionsTest);
-      let isGoodCounter = 0;
-      followQuestionsTest.forEach((el) => {
-        if('isGood' in el) {
-          isGoodCounter++;
-          console.log(isGoodCounter);
-        }
-      })
-      console.log(`outside loop ${isGoodCounter}`);
+
 
       function createResultCard() {
           window.history.replaceState({}, '','/rezultats');
           window.history.pushState("", document.title, window.location.pathname + window.location.search);
           //sort by percent value
+                //Create result card depending on result
+            followQuestionsTest.sort((a, b) => b.percentScore - a.percentScore);
+            
+            if(followQuestionsTest.length == 1 && followQuestionsTest[0].percentScore < 50) {
+                followQuestionsTest.pop();
+            }
+            console.log('and here');
+            console.log(followQuestionsTest);
+            let isGoodCounter = 0;
+            followQuestionsTest.forEach((el) => {
+                if('isGood' in el) {
+                isGoodCounter++;
+                console.log(isGoodCounter);
+                }
+            })
+            console.log(`outside loop ${isGoodCounter}`);
          if (isGoodCounter > 0) {
             // followQuestionsTest.forEach((el,index,arr) => {
             //     if (el.percentScore < 50) {
@@ -322,10 +323,10 @@ export function quizMobile() {
           main.classList.add(`${followQuestionsTest[0].color}`);
           let contacts = document.querySelector('.contact');
           contacts.classList.remove('none');
-          let resultsThis = ['šīs','šī'];
-          let resultsCount = ['fakultāte', 'fakultātes'];
-          let resultsThisFinal = followQuestionsTest.length > 0 ? resultsThis[0] : resultsThis[1];
-          let resultsCountFinal = followQuestionsTest.length > 0 ? resultsCount[0] : resultsCount[1];
+        //   let resultsThis = ['šīs','šī'];
+        //   let resultsCount = ['fakultāte', 'fakultātes'];
+        //   let resultsThisFinal = followQuestionsTest.length > 0 ? resultsThis[0] : resultsThis[1];
+        //   let resultsCountFinal = followQuestionsTest.length > 0 ? resultsCount[0] : resultsCount[1];
           let resultsContainer = document.createElement('div');
           let resultstext = document.querySelector('.resultstext').innerHTML;
           if(followQuestionsTest[0].image != '') {
