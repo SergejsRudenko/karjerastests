@@ -40,9 +40,10 @@ export function quiz() {
 
   let fallbackAnswers = [];
   let iterationCounter = 0;
+
   function createPartTwo() {
     let currentDiv = document.querySelector("main");
-
+    console.log(followQuestionsTest);
     //Removes questions that are not in fallbackQuestions
     for (let item of Object.values(followQuestionsTest)) {
       if (!fallbackAnswers.includes(item.title)) {
@@ -52,6 +53,8 @@ export function quiz() {
         );
       }
     }
+    console.log(followQuestionsTest);
+
     let formCounter = 0;
     let counter = 0;
 
@@ -125,8 +128,11 @@ export function quiz() {
             (element.questionsScore * 100) / element.followQuestions.length,
             2
           );
+          if(element.percentScore >= 50) {
+            element.isGood = true;
+          }
           //removing array item if score is les than 50%
-          // if (element.percentScore < 50) {
+          // if (!('isGood' in element) ) {
           //   arr.splice(index, 1);
           // }
 
@@ -140,7 +146,9 @@ export function quiz() {
 
       counter++;
       formCounter++;
-    });
+    }
+  // }
+  );
     let swiper = document.querySelectorAll(".swiper__second");
     for (let i = 0; i < swiper.length; i++) {
       var slider = new Swiper(".swiper" + i, {
@@ -248,9 +256,9 @@ export function quiz() {
                 event_label: "Apskatījas rezultātus",
               });
 
-              if(followQuestionsTest.length == 1 && followQuestionsTest[0].percentScore < 50) {
-                followQuestionsTest.pop();
-              }
+              // if(followQuestionsTest.length == 1 && followQuestionsTest[0].percentScore < 50) {
+              //   followQuestionsTest.pop();
+              // }
               setTimeout(() => {
                createResultCard();
               }, 200);
@@ -270,6 +278,7 @@ export function quiz() {
   function createFallBackAnswers() {
     // Check if both questions are true
     mainQuestionsTest.forEach((el) => {
+      console.log(el.fallBackQuestions);
       if (el.questionOneAnswer === "true" && el.questionTwoAnswer === "true") {
         fallbackAnswers = fallbackAnswers.concat(el.fallBackQuestions);
       }
@@ -345,14 +354,37 @@ export function quiz() {
     );
 
     //sort by percent value
-    if (followQuestionsTest.length != 0) {
-      followQuestionsTest.forEach((el,index,arr) => {
-        if (el.percentScore < 50) {
-          arr.splice(index, 1);
-        }
-      })
 
-      followQuestionsTest.sort((a, b) => b.percentScore - a.percentScore);
+    followQuestionsTest.sort((a, b) => b.percentScore - a.percentScore);
+
+
+    // for (let i = 0; i < followQuestionsTest.length; i++) {
+    //       if(followQuestionsTest[i].percentScore < 50) {
+    //         followQuestionsTest.pop();
+    //       }      
+    // }
+
+    if(followQuestionsTest.length == 1 && followQuestionsTest[0].percentScore < 50) {
+      followQuestionsTest.pop();
+    }
+    console.log('and here');
+    console.log(followQuestionsTest);
+    let isGoodCounter = 0;
+    followQuestionsTest.forEach((el) => {
+      if('isGood' in el) {
+        isGoodCounter++;
+        console.log(isGoodCounter);
+      }
+    })
+    console.log(`outside loop ${isGoodCounter}`);
+    if (isGoodCounter > 0) {
+      // followQuestionsTest.forEach((el,index,arr) => {
+      //   if (el.percentScore < 50) {
+      //     arr.splice(index, 1);
+      //   }
+      // })
+
+      // followQuestionsTest.sort((a, b) => b.percentScore - a.percentScore);
 
       let hero = document.querySelector(".first");
       hero.classList.add("none");
@@ -368,6 +400,7 @@ export function quiz() {
       //   followQuestionsTest.length > 0 ? resultsThis[0] : resultsThis[1];
       // let resultsCountFinal =
       //   followQuestionsTest.length > 0 ? resultsCount[0] : resultsCount[1];
+      let resultstext = document.querySelector('.resultstext').innerHTML;
       resultsContainer.classList.add("container");
       if (followQuestionsTest[0].image != "") {
         main.style.backgroundImage = `url('${followQuestionsTest[0].image}')`;
@@ -378,8 +411,9 @@ export function quiz() {
 				${followQuestionsTest[0].progName}
 			</h1>
 			<div class="results__subtitle">
-                ${followQuestionsTest[0].description}
+                ${resultstext}
 			</div>
+      <a href='#contact' class="featured__link results-contact">Piesakies konsultācijai</a>
           `;
       main.insertAdjacentElement("beforeend", resultsContainer);
 
@@ -390,9 +424,13 @@ export function quiz() {
       container.insertAdjacentElement("afterbegin", cards);
       main.insertAdjacentElement("afterend", container);
       console.log(followQuestionsTest);
-
-      for (let i = 0; i < 3; i++) {
-        if (followQuestionsTest[i].percentScore >= 50) {
+    //   followQuestionsTest = followQuestionsTest.filter((value, index, self) =>
+    //   index === self.findIndex((t) => (
+    //       t.page === value.page && t.facultyName === value.facultyName && t.progName === value.progName
+    //   ))
+    //  )
+      for (let i = 0; i < followQuestionsTest.length; i++) {
+        if (followQuestionsTest[i].isGood === true) {
           let card = document.createElement("div");
           let percentScore = followQuestionsTest[i].percentScore;
           let title = followQuestionsTest[i].name;

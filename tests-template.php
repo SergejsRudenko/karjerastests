@@ -5,6 +5,7 @@ Template Name: Tests page
 
 
 get_header();
+$results = get_fields('options')['result_page'];
 ?>
 
 <main>
@@ -91,15 +92,15 @@ get_header();
 
 	<?php
 		if( have_rows('follow_questions') ): while ( have_rows('follow_questions') ) : the_row();?>
-		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-progName="<?php echo get_sub_field('program_name');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-full="<?php echo get_sub_field('faculty_description');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" data-color="<?php echo get_sub_field('faculty_color');?>" data-image="<?php echo get_sub_field('faculty_image');?>" hidden>Hidden</div>
+		<div class="followQuestions" data-title="<?php echo get_sub_field('title');?>" data-progname="<?php echo get_sub_field('program_name');?>" data-question="<?php echo get_sub_field('questions');?>" data-name="<?php echo get_sub_field('faculty_name');?>" data-full="<?php echo get_sub_field('faculty_description');?>" data-description="<?php echo get_sub_field('faculty_short_description');?>" data-page="<?php echo get_sub_field('faculty_page');?>" data-color="<?php echo get_sub_field('faculty_color');?>" data-image="<?php echo get_sub_field('faculty_image');?>" hidden>Hidden</div>
 	<?php 
 		endwhile; endif;
     ?>
 	<section class="results none" style="background-image: url(<?php echo get_template_directory_uri() . '/assets/images/results.jpg';?>)">
-		
+
 	</section>
 
-	<section class="contact overlay-purple none " style="background-image: url(<?php echo get_field('images', 'option')['contacts_background_image'];?>)">
+	<section id="contact" class="contact overlay-purple none " style="background-image: url(<?php echo get_field('images', 'option')['contacts_background_image'];?>)">
 		<div class="container">
 			<div class="contact__inner">
 				<div class="contact__info">
@@ -111,7 +112,9 @@ get_header();
 			</div>
 		</div>
 	</section>
-
+<div class="none resultstext" hidden>
+		<?php echo $results['result_text'];?>
+</div>
 </main>
 <?php
 get_sidebar();

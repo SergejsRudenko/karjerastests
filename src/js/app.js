@@ -14,7 +14,9 @@ window.addEventListener('load', () => {
     }
     if(window.matchMedia( "(max-width: 820px)").matches) {
         SlidesGetter.getMobileSlides();
-        QuizMobile.quizMobile();
+        setTimeout(() => {
+            QuizMobile.quizMobile();            
+        }, 200);
     }
     QuestionCard.questionCard();
     window.onload = function() {

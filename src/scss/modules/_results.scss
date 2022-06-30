@@ -194,6 +194,8 @@
         margin: 0;
         margin-bottom: 24px;
         color: #fff;
+        max-width: 950px;
+        margin: 0 auto;
     }
     &__subtitle {
         font-weight: 700;
@@ -203,10 +205,21 @@
         max-width: 650px;
         margin: 0 auto;
         color: #fff;
+        margin-bottom: 75px;
     }
+}
+.results-contact {
+    color: #fff !important;
+    border-color: #fff !important;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 200px;
+    display: flex !important;
+    justify-content: center;
 }
 .cards {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
     color: #1B5089;
@@ -298,8 +311,8 @@
             margin-top: 60px;
         }
         &__title {
-            font-size: 64px;
-            line-height: 59px;
+            font-size: 34px;
+            line-height: 44px;
             font-weight: 700;
             margin-bottom: 15px;
         }

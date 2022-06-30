@@ -4,7 +4,7 @@ export function getMobileSlides(){
     let swiper = document.querySelector('.swiper');
 
     questions.forEach(el => {
-        firstForm.insertAdjacentElement('afterbegin', el);
+        firstForm.insertAdjacentElement('beforeend', el);
     })
     // document.querySelector('.left').classList.remove('none');
     swiper.remove();
