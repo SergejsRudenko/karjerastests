@@ -12,6 +12,7 @@ export function quizMobile() {
     let followQuestionsTest = [];
     let mainDisplay = document.querySelector('.first__inner');
     let contacts = document.querySelector('.contact');
+    var texts = CC_DATA.options;
 
     for (let i=0; i < DOMFollowQuestions.length; i++) {
         let title = DOMFollowQuestions[i].dataset.title;
@@ -264,10 +265,7 @@ export function quizMobile() {
         if(fallbackAnswers.length === 0) {
             document.querySelector('.first').remove();
             contacts.querySelector('.contact__info-title').remove();
-            contacts.querySelector('.contact__info-mail').innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu, tāpēc aicinām jau šodien pieteikties konsultācijai, rakstot uz e-pastu: <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>.<br>
-            Reģistrācijas daļā (pa labi), lūdzu, norādi savu vārdu, uzvārdu un savu e-pastu. Komentāru sadaļā, lūdzu, norādi, ko vēlies konsultācijā noskaidrot, piemēram, “Vēlos pārrunāt testa rezultātus”, “Gribu saprast, kurā mācību programmā mācīties”, “Vēlos precizēt turpmākos soļus savas karjeras izvēlē” utml.<br>
-            Ar Tevi sazināsies Latvijas Universitātes Karjeras centra konsultants un vienosies par konsultācijas laiku. Konsultācijas vietu noteiksi Tu – tā var notikt klātienē (Rīgā, Raiņa bulvārī 19, 122. telpā) vai attālināti Zoom platformā. Konsultācija skolēniem, Latvijas Universitātes studentiem, absolventiem un darbiniekiem ir bez maksas.<br>
-            Tev viss izdosies!`;
+            contacts.querySelector('.contact__info-mail').innerHTML = `${texts.contacts.bad_text}`;
             contacts.classList.remove('none');
             window.scrollTo({top: 0, behavior: 'smooth'});
             event.preventDefault();
@@ -334,7 +332,6 @@ export function quizMobile() {
           }
           resultsContainer.classList.add('container');
           resultsContainer.innerHTML = `
-          <h6 class="results__heading">Testa rezultāts:</h6>
 			<h1 class="results__title">
 				${followQuestionsTest[0].progName}
 			</h1>

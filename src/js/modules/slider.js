@@ -32,7 +32,7 @@ export function slider(){
           }
         }
       });
-      if(window.matchMedia( "(min-width: 821px)").matches) {
+      if(window.matchMedia( "(min-width: 835px)").matches) {
       function splitArrayIntoChunksOfLen(arr, len) {
         var chunks = [], i = 0, n = arr.length;
         while (i < n) {
@@ -58,6 +58,12 @@ export function slider(){
             if((inputsArr[0].checked || inputsArr[1].checked) & (inputsArr[2].checked || inputsArr[3].checked)) {
               setTimeout(() => {
                 swiper.slideNext();
+                let prevSlide = document.querySelector('.swiper-slide-prev');
+                let nextSlide = document.querySelector('.swiper-slide-next');
+
+                if (prevSlide != undefined) {
+                  backButton.classList.remove('none');
+                }
               }, 100);
               if(nexSlideButton.classList.contains('swiper-button-disabled') & slides.length-1 === i) {
                 button.click();
@@ -68,7 +74,13 @@ export function slider(){
       }
       backButton.addEventListener('click', () => {
         let prevSlide = document.querySelector('.swiper-slide-prev');
-        swiper.slidePrev();
+        if(prevSlide != undefined ) {
+          swiper.slidePrev();
+          let prevSlide = document.querySelector('.swiper-slide-prev');
+          if (prevSlide == undefined) {
+            backButton.classList.add('none');
+          }
+        }
         let inputs = prevSlide.querySelectorAll('.question__input');
         let labels = prevSlide.querySelectorAll('label');
         inputs.forEach(el => {
@@ -81,7 +93,7 @@ export function slider(){
         })
       })
     }
-    if(window.matchMedia( "(max-width: 821px)").matches) { 
+    if(window.matchMedia( "(max-width: 835px)").matches) { 
       
       let counter = 1;
       let button = document.querySelector('.firstButtonWrapper .button__link');

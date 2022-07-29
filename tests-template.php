@@ -5,7 +5,8 @@ Template Name: Tests page
 
 
 get_header();
-$results = get_fields('options')['result_page'];
+$results = get_fields('option')['result_page'];
+$contacts = get_fields('option')['contacts'];
 ?>
 
 <main>
@@ -104,9 +105,9 @@ $results = get_fields('options')['result_page'];
 		<div class="container">
 			<div class="contact__inner">
 				<div class="contact__info">
-					<div class="contact__info-title">Vēlies saņemt vairāk informācijas?</div>
+					<div class="contact__info-title"><?php echo $contacts['good_title'];?></div>
 					<!-- <div class="contact__info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div> -->
-					<div class="contact__info-mail">Piesakies konsultācijai aizpildot kontaktformu vai rakstot uz e-pastu <a href="mailto: karjera@lu.lv" class="">karjera@lu.lv</a></div>
+					<div class="contact__info-mail"><?php echo $contacts['good_text'];?></div>
 				</div>
 				<?php echo do_shortcode('[contact-form-7 id="105" title="Untitled" html_class="contact__form"]'); ?>
 			</div>

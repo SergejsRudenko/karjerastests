@@ -8,7 +8,7 @@
  *
  * @package karjerastest
  */
-
+$footer = get_fields('option')['footer'];
 ?>
 
 <footer class="footer">
@@ -16,7 +16,7 @@
         <div class="footer__inner">
             <a href="https://www.lu.lv/" class="footer__logo"></a>
             <div class="footer__social">
-                <div class="footer__social-title">Seko mums</div>
+                <div class="footer__social-title"><?php echo $footer['links_title'];?></div>
                 <?php wp_nav_menu([
               'theme_location'  => 'footer_social',
               'container'       => false,

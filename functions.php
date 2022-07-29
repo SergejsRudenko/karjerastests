@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.13' );
+	define( '_S_VERSION', '1.0.20' );
 }
 
 /**
@@ -151,6 +151,11 @@ function karjerastest_scripts() {
 	wp_enqueue_script( 'karjerastest-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 	wp_enqueue_script( 'karjerastest-cookie-consent', get_template_directory_uri() . '/assets/files/cookieconsent.js', array('jquery'), _S_VERSION, true );
 	wp_enqueue_script( 'karjerastest-main', get_template_directory_uri() . '/assets/js/app.min.js', array('jquery'), _S_VERSION, true );
+
+	wp_localize_script( 'karjerastest-main', 'CC_DATA', array(
+		'ajax_url'	=> 	admin_url( 'admin-ajax.php' ),
+		'options'	=>  get_fields('option'),
+	));
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

@@ -1,6 +1,7 @@
 .questions__form {
     max-width: 538px;
-    @media (max-width: 820px){
+    border-radius: 5px;
+    @media (max-width: 834px){
         margin: 0 auto;
         position: relative;
         align-items: center;
@@ -20,7 +21,7 @@
         gap: 48px;
         max-width: 538px;
         width: 100%;
-        @media(max-width:820px){
+        @media(max-width:834px){
             transform: translateY(-25%);
         }
         .one,.two {
@@ -32,7 +33,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            @media(max-width:820px){
+            @media(max-width:834px){
                 min-height: 260px;
                 padding: 15px;
             }
@@ -69,7 +70,7 @@
                 }
             }
         }
-        @media(max-width: 820px) {
+        @media(max-width: 834px) {
             gap: 18px;
             .one,.two {
                 border-radius: 0;
@@ -77,7 +78,9 @@
         }
 
     }
-
+    @media(max-width:480px) {
+        margin-bottom: -60px;
+    }
 }
 .slider__title {
     color: #fff;
@@ -104,7 +107,7 @@
 }
 .first__questions-form {
     display: none;
-    @media(max-width:820px) {
+    @media(max-width:834px) {
         & .questions {
             margin-bottom: 18px;
         }
@@ -126,7 +129,7 @@
     line-height: 28px;
     margin-bottom: 16px;
 }
-@media(min-width:821px){
+@media(min-width:835px){
     .mobilePagination {
         display: none;
     }
@@ -134,7 +137,7 @@
 .wrapper {
     .questions__form {
         background: #fff;
-        @media(max-width: 820px) {
+        @media(max-width: 834px) {
             background: none;
             display: flex;
             flex-direction: column;
@@ -157,7 +160,7 @@
         span {
             font-size: 48px;
             line-height: 57px;
-            @media(max-width: 820px) {
+            @media(max-width: 834px) {
                 font-size: 24px;
                 line-height: 28px;
             }
@@ -170,9 +173,9 @@
         gap: 0;
         border-radius: 5px;
         .question {
-            padding: 0 10px;
+            padding: 0 20px;
         }
-        @media(max-width:820px) {
+        @media(max-width:834px) {
             background-color: #fff;
             // display: block;
             min-height: unset;
@@ -194,7 +197,7 @@
     background-color: #fff;
     margin-top: 40px;
     width: auto !important;
-    @media(max-width: 820px) {
+    @media(max-width: 834px) {
         margin-bottom: 60px !important;
         margin-top: 40px !important;
     }

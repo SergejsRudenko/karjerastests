@@ -12,6 +12,7 @@ export function quiz() {
   let followQuestionsTest = [];
   let mainDisplay = document.querySelector(".first__inner");
   let contacts = document.querySelector(".contact");
+  var texts = CC_DATA.options;
 
   for (let i = 0; i < DOMFollowQuestions.length; i++) {
     let title = DOMFollowQuestions[i].dataset.title;
@@ -181,11 +182,17 @@ export function quiz() {
           inputsArr[j].addEventListener("click", () => {
             if (inputsArr[0].checked || inputsArr[1].checked) {
               el.swiper.slideNext();
+              let backButton = document.querySelector('.back__button');
+              let prevSlide = document.querySelector('.swiper-slide-prev');
+              if (prevSlide != undefined) {
+                backButton.classList.remove('none');
+              }
               if (
                 nexSlideButton.classList.contains("swiper-button-disabled") &
                 (slides.length - 1 === i)
               ) {
                 button.click();
+                backButton.classList.add('none');
               }
             }
           });
@@ -200,9 +207,16 @@ export function quiz() {
     for (let i = 0; i < swiperForBack.length; i++) {
       let swiper = document.querySelector(`.swiper${i}`).swiper;
       let backButton = document.querySelector(".back__button");
+      // backButton.classList.add('none');
       backButton.addEventListener("click", () => {
         let prevSlide = swiperForBack[i].querySelector(`.swiper-slide-prev`);
-        swiper.slidePrev();
+        if (prevSlide != undefined) {
+          swiper.slidePrev();
+        let prevSlide = swiperForBack[i].querySelector(`.swiper-slide-prev`);
+          if (prevSlide == undefined) {
+            backButton.classList.add('none');
+          }
+        }
         let inputs = prevSlide.querySelectorAll(".question__input");
         let labels = prevSlide.querySelectorAll("label");
         // inputs.checked = false;
@@ -308,17 +322,13 @@ export function quiz() {
         item.questionTwoAnswer = data.get(`question${counter + 1}`);
         counter += 2;
       }
-
       createFallBackAnswers();
       if (fallbackAnswers.length === 0) {
         document.querySelector(".first").remove();
         contacts.querySelector(".contact__info-title").remove();
         contacts.querySelector(
           ".contact__info-mail"
-        ).innerHTML = `Izskatās, ka ar testa jautājumiem neizdevās izgaismot Tavas stiprās puses un intereses. Bet nebēdā! Tas nozīmē, ka ir vērts savas karjeras iespējas pārrunāt individuāli ar karjeras konsultantu, tāpēc aicinām jau šodien pieteikties konsultācijai, rakstot uz e-pastu: <a href="mailto:karjera@lu.lv">karjera@lu.lv</a>.<br>
-            Reģistrācijas daļā (pa labi), lūdzu, norādi savu vārdu, uzvārdu un savu e-pastu. Komentāru sadaļā, lūdzu, norādi, ko vēlies konsultācijā noskaidrot, piemēram, “Vēlos pārrunāt testa rezultātus”, “Gribu saprast, kurā mācību programmā mācīties”, “Vēlos precizēt turpmākos soļus savas karjeras izvēlē” utml.<br>
-            Ar Tevi sazināsies Latvijas Universitātes Karjeras centra konsultants un vienosies par konsultācijas laiku. Konsultācijas vietu noteiksi Tu – tā var notikt klātienē (Rīgā, Raiņa bulvārī 19, 122. telpā) vai attālināti Zoom platformā. Konsultācija skolēniem, Latvijas Universitātes studentiem, absolventiem un darbiniekiem ir bez maksas.<br>
-            Tev viss izdosies!`;
+        ).innerHTML = `${texts.contacts.bad_text}`;
         contacts.classList.remove("none");
         event.preventDefault();
       }
@@ -334,6 +344,7 @@ export function quiz() {
           document.querySelector(".firstPart").classList.remove("none");
           document.querySelector(".part__two").remove();
           document.querySelector(".right").classList.add("none");
+          document.querySelector('.back__button').classList.add('none');
           sendGAEvent("Sāka testa otro daļu", {
             event_category: "Sāka testa otro daļu",
             event_label: "Sāka testa otro daļu",
@@ -406,7 +417,6 @@ export function quiz() {
         main.style.backgroundImage = `url('${followQuestionsTest[0].image}')`;
       }
       resultsContainer.innerHTML = `
-          <h6 class="results__heading">Testa rezultāts:</h6>
 			<h1 class="results__title">
 				${followQuestionsTest[0].progName}
 			</h1>

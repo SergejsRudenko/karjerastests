@@ -17,7 +17,7 @@ export function questionCard() {
         gtag('event', event, data);
     }
 
-    if(window.matchMedia( "(min-width: 769px)").matches) {
+    if(window.matchMedia( "(min-width: 835px)").matches) {
         nexSlideButton.addEventListener('click', () => {
             if(nexSlideButton.classList.contains('swiper-button-disabled')) {
                 button.classList.remove('none');
@@ -26,8 +26,8 @@ export function questionCard() {
     }
 
     questionsButton.addEventListener('click', () => {
-        if(window.matchMedia( "(min-width: 821px)").matches) {
-            document.querySelector('.back__button').classList.remove('none');
+        if(window.matchMedia( "(min-width: 835px)").matches) {
+            // document.querySelector('.back__button').classList.add('none');
          firsTitle.insertAdjacentElement('beforeend', pagination);
          $(".first__questions").on("click", function(e){
             sendGAEvent('Sāka testu', {
@@ -38,7 +38,7 @@ export function questionCard() {
         }
         questionsForm.classList.add('block');
         firstInfoCard.classList.toggle('none');
-        if(window.matchMedia( "(max-width: 820px)").matches) {
+        if(window.matchMedia( "(max-width: 834px)").matches) {
              firstPart.classList.add('mobileOverlay');
              questionsForm.classList.add('flex-column-reverse');
         }
@@ -49,7 +49,7 @@ export function questionCard() {
               'event_label' : 'Sāka testu'
             });
         });
-        if(window.matchMedia( "(min-width: 821px)").matches) {
+        if(window.matchMedia( "(min-width: 835px)").matches) {
             // title.classList.toggle('none');
         }
         
@@ -64,7 +64,7 @@ export function questionCard() {
                 } else if(label[1].classList.contains('active')) {
                     label[0].setAttribute('hidden', '');
                 }
-                if(window.matchMedia( "(max-width: 820px)").matches) {
+                if(window.matchMedia( "(max-width: 834px)").matches) {
                     label[i].style.pointerEvents = 'none';
                 }
             })        
