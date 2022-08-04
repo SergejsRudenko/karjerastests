@@ -417,9 +417,6 @@ export function quiz() {
         main.style.backgroundImage = `url('${followQuestionsTest[0].image}')`;
       }
       resultsContainer.innerHTML = `
-			<h1 class="results__title">
-				${followQuestionsTest[0].progName}
-			</h1>
 			<div class="results__subtitle">
                 ${resultstext}
 			</div>
@@ -444,6 +441,7 @@ export function quiz() {
           let card = document.createElement("div");
           let percentScore = followQuestionsTest[i].percentScore;
           let title = followQuestionsTest[i].name;
+          let progTitle = followQuestionsTest[i].progName;
           let description = followQuestionsTest[i].fullDescription;
           let color = followQuestionsTest[i].color;
           card.classList.add("cards__item");
@@ -463,7 +461,8 @@ export function quiz() {
                cy="60"/>
            </svg>
            </div></div>
-              <h3 class="cards__item-title">${title}</h3>
+              <h3 class="cards__item-title">${progTitle}</h3>
+              <span class="cards__item-subtitle">${title}</span>
               <div class="cards__item-text">${description}</div>
               <a href="${followQuestionsTest[i].page}" class="cards__item-button" target="_blank" >uzzināt vairāk</a>
               `;

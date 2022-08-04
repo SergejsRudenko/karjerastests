@@ -250,7 +250,7 @@
         margin: 0 auto;
         color: #fff;
         margin-bottom: 40px;
-        margin-top: 40px;
+        margin-top: 60px;
 
         p:first-of-type {
             margin-top: 0;
@@ -318,6 +318,12 @@
             font-size: 26px;
             line-height: 26px;
             margin-top: 35px;
+        }
+        &-subtitle{
+            font-size: 20px;
+            line-height: 27px;
+            font-weight: 600;
+            margin-top: 10px;
         }
         &-text {
             max-width: 347px;
