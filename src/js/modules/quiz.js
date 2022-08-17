@@ -503,14 +503,14 @@ export function quiz() {
     container.innerHTML = `
           <div class="first__inner">
 				<div class="left">
-					<h1 class="first__title">Otrā jautājumu sadaļa</h1>
+					<h1 class="first__title">${texts.info.part_two_big_title}</h1>
 				</div>
 				<div class="right">
 					<div class="first__info">
-						<div class="first__info-title">Tev labi izdodas! Tālāk turpini ar šiem apgalvojumiem – rūpīgi izlasi katru no tiem un atbildi uz tiem ar “jā” vai “nē”'</div>
+						<div class="first__info-title">${texts.info.part_two_title}</div>
 						<ul class="first__info-list">
-							<li>~50 jautājumi</li>
-							<li>Aptuvenais izpildes laiks: 5-15 minūtes </li>
+							<li>${texts.info.part_two_question}</li>
+							<li>${texts.info.part_two_eta}</li>
 						</ul>
 						<div class="button__wrapper">
 							<a href="#" class="featured__link second__questions">Turpināt Testu</a>

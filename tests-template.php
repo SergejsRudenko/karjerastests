@@ -7,6 +7,8 @@ Template Name: Tests page
 get_header();
 $results = get_fields('option')['result_page'];
 $contacts = get_fields('option')['contacts'];
+$texts = get_fields('option')['info'];
+
 ?>
 
 <main>
@@ -14,7 +16,7 @@ $contacts = get_fields('option')['contacts'];
 		<div class="container firstPart">
 			<div class="first__inner">
 				<div class="left">
-					<h1 class="first__title">Pirmā jautājumu sadaļa
+					<h1 class="first__title"><?php echo $texts['part_one_big_title'];?>
 					<!-- <a href="#" class="back__button none">Atpakaļ<i class="arrow"></i></a> -->
 
 					</h1>
@@ -22,10 +24,10 @@ $contacts = get_fields('option')['contacts'];
 				</div>
 				<div class="right">
 					<div class="first__info">
-						<div class="first__info-title">Rūpīgi izlasi jautājumu un atbildi ar “jā” vai “nē”.</div>
+						<div class="first__info-title"><?php echo $texts['part_one_title'];?></div>
 						<ul class="first__info-list">
-							<li>14 jautājumi</li>
-							<li>Aptuvenais izpildes laiks: 3 minūtes </li>
+							<li><?php echo $texts['part_one_question'];?></li>
+							<li><?php echo $texts['part_one_eta'];?></li>
 						</ul>
 						<div class="button__wrapper">
 							<a href="#" class="featured__link first__questions">Turpināt Testu</a>
